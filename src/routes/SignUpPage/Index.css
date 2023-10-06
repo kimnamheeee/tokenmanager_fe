@@ -1,0 +1,94 @@
+.SignUpPage {
+  display: flex;
+  flex-direction: row;
+}
+
+.sign-up-image {
+  width: 65%;
+  margin-bottom: 5vh;
+}
+
+.instruction-text {
+  margin-bottom: 10vh;
+  line-height: 1.6;
+}
+
+.instructions {
+  width: 50vw;
+  background-color: #ffffff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-up-container {
+  background-color: #ffffff;
+  position: relative;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.sign-up-input-container {
+  width: 35vw;
+  background-color: #ffffff;
+  height: 77vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0px 15px 10px rgba(0, 0, 0, 0.25);
+  position: absolute;
+}
+
+.abstract-shape-1 {
+  position: absolute;
+  width: 14vw;
+  top: 0;
+  left: 0;
+}
+
+.abstract-shape-2 {
+  position: absolute;
+  width: 14vw;
+  bottom: 0;
+  right: 0;
+  transform: rotate(180deg);
+}
+
+.input-container {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.5vh;
+  margin-top: 7vh;
+}
+
+.signup-input {
+  width: 100%;
+  height: 6vh;
+  margin-bottom: 3.5vh;
+  border: none;
+  background-color: #f5f5f5;
+  font-size: 1rem;
+  padding-left: 1vw;
+  border-radius: 12px;
+}
+
+.text-container {
+  display: flex;
+}
+
+.signup-label {
+  font-size: 1rem;
+  margin-bottom: 1vw;
+  width: 100%;
+  font-weight: 600;
+}
