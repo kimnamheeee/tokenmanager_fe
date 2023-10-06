@@ -42,10 +42,13 @@ const SignUpPage = () => {
               placeholder="Password"
             />
           </div>
+          <div className="signup-btn-container">
+            <button className="signup-btn">Sign Up</button>
+          </div>
           <div className="text-container">
             <p>already have an account?</p>
             &nbsp; &nbsp; &nbsp;
-            <p>Sign In</p>
+            <p className="signin-link">Sign In</p>
           </div>
         </div>
       </div>
