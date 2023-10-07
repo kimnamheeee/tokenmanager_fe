@@ -1,0 +1,30 @@
+.UrlBox {
+  display: flex;
+}
+
+.url-container {
+  background-color: #e6e6e6;
+  height: 8vh;
+  width: 25vw;
+  border-radius: 10px;
+  margin-right: 0.4vw;
+}
+
+.delete-button {
+  height: 8vh;
+  width: 4vw;
+  background-color: #6a63f6;
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 4vh;
+}
+
+.url-container {
+  padding-left: 2vw;
+  line-height: 8vh;
+}
