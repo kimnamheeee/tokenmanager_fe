@@ -32,4 +32,27 @@
   color: #ffffff;
   font-size: 2rem;
   font-weight: 800;
+  opacity: 0.6;
+}
+
+.url-plus-button:hover {
+  opacity: 1;
+}
+
+.abstract-shape2 {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  height: 40vh;
+  transform: translate(3vw);
+}
+
+.img-crop {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+  height: 40vh;
+  width: 40vw;
 }
