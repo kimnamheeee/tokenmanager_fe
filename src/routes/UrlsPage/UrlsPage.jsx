@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./Index.css";
 import UrlBox from "../../components/UrlBox/UrlBox";
-import abstractShape2 from "../../assets/images/abstract-shape2.png";
 
 const UrlsPage = () => {
   return (
@@ -30,9 +29,6 @@ const UrlsPage = () => {
         </div> */}
         <div className="url-plus-button">
           <div className="url-plus-button-text">+</div>
-        </div>
-        <div className="img-crop">
-          <img src={abstractShape2} className="abstract-shape2" />
         </div>
       </div>
     </div>
