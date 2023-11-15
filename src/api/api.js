@@ -3,7 +3,7 @@ import { instance, instanceWithToken } from "./axios";
 export const signIn = async (data) => {
   const response = await instance.post("/account/signin/", data);
   if (response.status === 200) {
-    window.location.href = "/";
+    window.location.href = "/projects";
   } else {
     console.error(response);
   }
