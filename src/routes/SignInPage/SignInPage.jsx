@@ -2,8 +2,24 @@ import { useState } from "react";
 import "./Index.css";
 import SignInImage from "../../assets/images/signinpage.svg";
 import abstractshape from "../../assets/images/abstract-shape.png";
+import { signIn } from "../../api/api";
+import { Link } from "react-router-dom";
 
 const SignUpPage = () => {
+  const [signInForm, setSignInForm] = useState({
+    username: "",
+    password: "",
+  });
+
+  const handleSignInForm = (e) => {
+    const { id, value } = e.target;
+    setSignInForm({ ...signInForm, [id]: value });
+  };
+
+  const handleSignIn = () => {
+    signIn(signInForm);
+  };
+
   return (
     <div className="SignUpPage">
       <div className="instructions">
@@ -29,24 +45,34 @@ const SignUpPage = () => {
           <div className="input-container">
             <label className="signup-label">Username</label>
             <input
+              id="username"
               className="signup-input"
               type="text"
               placeholder="Username"
+              onChange={handleSignInForm}
+              value={signInForm.username}
             />
             <label className="signup-label">Password</label>
             <input
+              id="password"
               className="signup-input"
               type="password"
               placeholder="Password"
+              onChange={handleSignInForm}
+              value={signInForm.password}
             />
           </div>
           <div className="signup-btn-container">
-            <button className="signup-btn">Sign In</button>
+            <button className="signup-btn" onClick={handleSignIn}>
+              Sign In
+            </button>
           </div>
           <div className="text-container">
             <p>don't have an account?</p>
             &nbsp; &nbsp; &nbsp;
-            <p className="signin-link">Sign Up</p>
+            <Link to="/signup" className="signin-link">
+              Sign Up
+            </Link>
           </div>
         </div>
       </div>
