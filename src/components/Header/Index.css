@@ -1,6 +1,7 @@
 .Header {
   height: 10vh;
-  line-height: 10vh;
+  line-height: 5vh;
   text-align: right;
-  margin-right: 4vw;
+  margin-right: 10vw;
+  width: 100vw;
 }
