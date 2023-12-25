@@ -15,13 +15,13 @@ const RequestBox = () => {
             <TypeBox />
             <SpecUrlBox />
             <Timer />
+            <div className="delete-icon-box">
+              <img className="delete-icon" src={trashbin} width="30" />
+            </div>
           </div>
           <div className="requestbox-token">
             <TokenBox />
           </div>
-        </div>
-        <div className="delete-icon-box">
-          <img className="delete-icon" src={trashbin} width="30" />
         </div>
       </div>
     </div>
