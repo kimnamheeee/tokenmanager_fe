@@ -1,14 +1,17 @@
 .reqeust-page-header {
   display: flex;
   flex-direction: row;
+  /* background-color: red; */
 }
 
 .request-container {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
   margin: 20;
-  height: 85vh;
-  justify-content: space-between;
+  /* height: 85vh; */
+  width: 100vw;
+  justify-content: center;
+  /* background-color: #e6e6e6; */
 }
 
 .rqbox-container {
@@ -20,9 +23,12 @@
 }
 
 .request-container-box {
-  width: 100vw;
-  height: 200;
-  margin: 2em;
+  /* width: 100vw; */
+  /* height: 200; */
+  /* margin: 2em; */
+  margin: 1.7em;
+  margin-top: 4.5vh;
+  width: 45%;
   background-color: #e6e6e6;
   display: flex;
   flex-direction: column;

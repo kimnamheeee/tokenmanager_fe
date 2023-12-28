@@ -44,18 +44,21 @@
 }
 
 .project-header-box {
-  margin: 2em;
+  /* margin: 2em; */
+  margin-top: 3em;
+  margin-bottom: 3em;
   width: 100vw;
   height: 4vh;
   /* padding: 2em; */
   /* border-left: solid 5px #6a63f6;
   background-color: #f5f5f5;
   box-shadow: 3px 1px 4px rgba(0, 0, 0, 0.2); */
+  /* background-color: green; */
   text-align: center;
 }
 
 .token-time-box {
-  margin-left: 2em;
+  margin-left: 2.7em;
   background-color: #e6e6e6;
   height: 8vh;
   width: 25vw;
@@ -109,4 +112,19 @@
   /* justify-content: center; */
   padding-left: 1em;
   width: 25vw;
+}
+
+.TokenBox {
+  /* background-color: #e6e6e6; */
+  margin-top: 1.5vh;
+}
+
+.token-type {
+  margin-bottom: 1vh;
+  font-weight: bold;
+}
+
+.token-content-box {
+  width: 38.5vw;
+  word-wrap: break-word;
 }
