@@ -22,7 +22,8 @@ export const signUp = async (data) => {
 };
 
 export const getProjectList = async () => {
-  const response = await instance.get("/project/");
+  const response = await instanceWithToken.get("/project/");
+  console.log("got response", response.data);
   return response.data;
 };
 
@@ -34,15 +35,14 @@ export const getProjectDetail = async (id) => {
 
 export const createProject = async (data) => {
   const response = await instanceWithToken.post("/project/", data);
-  if(response.status === 201){
+  if (response.status === 201) {
     console.log("POST SUCCESS");
     const project_id = response.id;
-  }else{
+  } else {
     console.log("[ERROR] error while creating project");
   }
   return response;
-
-}
+};
 
 export const updateProject = async (id, data, navigate) => {
   const response = await instanceWithToken.put(`/project/${id}/`, data);
@@ -53,7 +53,7 @@ export const updateProject = async (id, data, navigate) => {
   }
 };
 
-export const deleteProject =  async (id, navigate) => {
+export const deleteProject = async (id, navigate) => {
   const response = await instanceWithToken.delete(`/project/${id}/`);
   if (response.status === 204) {
     console.log("PROJECT DELETE SUCCESS");
