@@ -33,12 +33,12 @@ export const getProjectDetail = async (id) => {
 };
 
 export const createProject = async (data) => {
-  const response = await instanceWithToken.post("/prompt/", data);
+  const response = await instanceWithToken.post("/project/", data);
   if(response.status === 201){
     console.log("POST SUCCESS");
     const project_id = response.id;
   }else{
-    console.log("[ERROR] error while creating prompt");
+    console.log("[ERROR] error while creating project");
   }
   return response;
 
