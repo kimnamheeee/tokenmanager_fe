@@ -1,31 +1,46 @@
-.reqeust-page-header{
-    display: flex;
-    flex-direction: row;
+.reqeust-page-header {
+  display: flex;
+  flex-direction: row;
+  /* background-color: red; */
 }
 
-.request-container{
-    display: flex;
-    flex-direction: row;
-    margin:20;
-    height: 85vh;
-    justify-content: space-between;
+.request-container {
+  display: flex;
+  /* flex-direction: row; */
+  margin: 20;
+  /* height: 85vh; */
+  width: 100vw;
+  justify-content: center;
+  /* background-color: #e6e6e6; */
 }
 
-.request-container-box{
-    width: 100vw;
-    height: 200;
-    margin: 2em;
-    background-color: #e6e6e6;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
+.rqbox-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: 20;
 }
 
-.request-container-box-button{
-    background-color: #6a63f6;
-    color: #ffffff;
-    text-align: center;
-    font-size: 30px;
-    width: 100%;
+.request-container-box {
+  /* width: 100vw; */
+  /* height: 200; */
+  /* margin: 2em; */
+  margin: 1.7em;
+  margin-top: 4.5vh;
+  width: 45%;
+  background-color: #e6e6e6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.request-container-box-button {
+  background-color: #6a63f6;
+  color: #ffffff;
+  text-align: center;
+  font-size: 3vh;
+  padding: 1.5vh 0 1.5vh 0;
+  font-weight: bold;
+  width: 100%;
 }

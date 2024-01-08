@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./Index.css";
 import UrlBox from "../../components/UrlBox/UrlBox";
 import { getProjectList, createProject, updateProject, deleteProject } from "../../api/api";
+import Header from "../../components/Header/Header";
 
 const UrlsPage = () => {
   const [projectList, setProjectList] = useState([]);
@@ -32,6 +33,7 @@ const UrlsPage = () => {
 
   return (
     <div className="UrlsPage">
+      <Header />
       <h1>Select Your Project</h1>
       <div className="urls-container">
         <div className="url-row-container">
