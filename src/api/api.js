@@ -69,12 +69,16 @@ export const updateProject = async (id, data, navigate) => {
 };
 
 export const deleteProject = async (id, navigate) => {
-  const response = await instanceWithToken.delete(`/project/${id}/`);
-  if (response.status === 204) {
-    console.log("PROJECT DELETE SUCCESS");
-    navigate("/");
+  if (window.confirm("프로젝트를 삭제하시겠습니까?")) {
+    const response = await instanceWithToken.delete(`/project/${id}/`);
+    if (response.status === 204) {
+      console.log("PROJECT DELETE SUCCESS");
+      window.location.reload();
+    } else {
+      console.log("[ERROR] error while deleting project");
+    }
   } else {
-    console.log("[ERROR] error while deleting project");
+    return;
   }
 };
 
