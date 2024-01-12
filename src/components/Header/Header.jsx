@@ -1,6 +1,7 @@
 import "./Index.css";
 import { useEffect, useState } from "react";
-import { getCookie, removeCookie } from "../../utils/cookie";
+import { getCookie } from "../../utils/cookie";
+import { signOut } from "../../api/api";
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -11,9 +12,14 @@ const Header = () => {
     setIsLoggedIn(loggedIn);
   }, []);
 
+  const handleSignOut = () => {
+    const token = getCookie("refresh_token");
+    signOut(token);
+  };
+
   return (
     <div className="Header">
-      {isLoggedIn ? <p>sign out</p> : <p>sign in</p>}
+      {isLoggedIn ? <p onClick={handleSignOut}>sign out</p> : <p>sign in</p>}
     </div>
   );
 };

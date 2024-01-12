@@ -1,4 +1,5 @@
 import { instance, instanceWithToken } from "./axios";
+import { removeCookie } from "../utils/cookie";
 
 export const signIn = async (data) => {
   const response = await instance.post("/account/signin/", data);
@@ -19,6 +20,20 @@ export const signUp = async (data) => {
     }
   }
   return response;
+};
+
+export const signOut = async (token) => {
+  const response = await instanceWithToken.post("/account/logout/", {
+    refresh: token,
+  });
+  if (response.status === 204) {
+    removeCookie("refresh_token");
+    removeCookie("access_token");
+
+    window.location.href = "/";
+  } else {
+    alert("오류로 인해 로그아웃할 수 없습니다.");
+  }
 };
 
 export const getProjectList = async () => {
@@ -54,12 +69,16 @@ export const updateProject = async (id, data, navigate) => {
 };
 
 export const deleteProject = async (id, navigate) => {
-  const response = await instanceWithToken.delete(`/project/${id}/`);
-  if (response.status === 204) {
-    console.log("PROJECT DELETE SUCCESS");
-    navigate("/");
+  if (window.confirm("프로젝트를 삭제하시겠습니까?")) {
+    const response = await instanceWithToken.delete(`/project/${id}/`);
+    if (response.status === 204) {
+      console.log("PROJECT DELETE SUCCESS");
+      window.location.reload();
+    } else {
+      console.log("[ERROR] error while deleting project");
+    }
   } else {
-    console.log("[ERROR] error while deleting project");
+    return;
   }
 };
 
@@ -84,7 +103,7 @@ export const createRequest = async (data) => {
   }
 };
 
-export const deleteRequest =  async (id, navigate) => {
+export const deleteRequest = async (id, navigate) => {
   const response = await instanceWithToken.delete(`/request/${id}/`);
   if (response.status === 204) {
     console.log("REQUEST DELETE SUCCESS");
@@ -96,16 +115,15 @@ export const deleteRequest =  async (id, navigate) => {
 
 export const createToken = async (data) => {
   const response = await instanceWithToken.post("/tokens/", data);
-  if(response.status === 201){
+  if (response.status === 201) {
     console.log("POST SUCCESS");
-  }else{
+  } else {
     console.log("[ERROR] error while creating token");
   }
   return response;
-
 };
 
-export const deleteToken =  async (id, navigate) => {
+export const deleteToken = async (id, navigate) => {
   const response = await instanceWithToken.delete(`/tokens/${id}/`);
   if (response.status === 204) {
     console.log("TOKEN DELETE SUCCESS");
@@ -122,16 +140,15 @@ export const getTokenList = async () => {
 
 export const createTokenTime = async (data) => {
   const response = await instanceWithToken.post("/tokentime/", data);
-  if(response.status === 201){
+  if (response.status === 201) {
     console.log("POST SUCCESS");
-  }else{
+  } else {
     console.log("[ERROR] error while creating token time");
   }
   return response;
-
 };
 
-export const deleteTokenTime =  async (id, navigate) => {
+export const deleteTokenTime = async (id, navigate) => {
   const response = await instanceWithToken.delete(`/tokentime/${id}/`);
   if (response.status === 204) {
     console.log("TOKEN TIME DELETE SUCCESS");
@@ -145,10 +162,3 @@ export const getTokenTimeList = async () => {
   const response = await instance.get("/tokentime/");
   return response.data;
 };
-
-
-
-
-
-
-
