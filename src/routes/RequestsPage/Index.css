@@ -44,3 +44,16 @@
   font-weight: bold;
   width: 100%;
 }
+
+.tokentime-plus-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #e6e6e6;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 800;
+  opacity: 0.6;
+}
