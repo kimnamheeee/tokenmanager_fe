@@ -2,25 +2,16 @@ import "./Index.css";
 import { useState, useEffect } from "react";
 import { getProjectDetail } from "../../api/api";
 
-const ProjectHeader = ({project}) => {
-  const [projectDetail, setProjectDetail]=useState();
-  console.log(project)
+const ProjectHeader = ({ project }) => {
+  const [projectDetail, setProjectDetail] = useState("");
 
   useEffect(() => {
-    console.log("USEEFFECTTTTT")
     const getProjectDetailAPI = async (data) => {
       const projects = await getProjectDetail(data);
       setProjectDetail(projects);
     };
     getProjectDetailAPI(project);
   }, []);
-
-  useEffect(()=>{
-    console.log("바뀜");
-    console.log(projectDetail);
-  }, [projectDetail])
-
-
 
   return (
     <div className="ProjectHeader">
