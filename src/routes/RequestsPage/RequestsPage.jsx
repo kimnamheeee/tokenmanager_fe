@@ -44,7 +44,7 @@ const RequestsPage = () => {
   return (
     <div className="RequestsPage">
       <div className="request-page-header">
-        <ProjectHeader />
+        <ProjectHeader project={projectId}/>
         <div className="token-time-container">
           <TokenTimeBox />
           {isAdding ? (

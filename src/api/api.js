@@ -43,6 +43,7 @@ export const getProjectList = async () => {
 };
 
 export const getProjectDetail = async (id) => {
+  console.log("API CALLED", id);
   const response = await instance.get(`/project/${id}/`);
   console.log("RESPONSE", response.data);
   return response.data;
