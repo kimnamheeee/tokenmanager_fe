@@ -64,6 +64,23 @@
   width: 25vw;
   border-radius: 10px;
   margin-right: 0.4vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1.2em;
+}
+
+.token-duration {
+  background-color: blue;
+  background-color: #50c8ff;
+  height: 4.5vh;
+  width: 5vw;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
 }
 
 .token-time-form {
@@ -147,4 +164,24 @@
 .token-content-box {
   width: 38.5vw;
   word-wrap: break-word;
+}
+
+.token-time-add-button {
+  background-color: #6a63f6;
+  color: white;
+  font-weight: 800;
+  height: 8vh;
+  width: 8vh;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.6;
+  font-size: 1.5em;
+  margin-left: 0.3em;
+}
+
+.token-time-add-button:hover {
+  cursor: pointer;
+  opacity: 1;
 }
