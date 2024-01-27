@@ -9,7 +9,7 @@ const UrlBox = (project) => {
   };
   return (
     <div className="UrlBox">
-      <Link className="url-container" to={`/requests/${prj.id}`}>{prj.url}</Link>
+      <Link className="url-container" to={`/project/${prj.id}`}>{prj.url}</Link>
       <div className="delete-button" onClick={() => handleDelete(prj.id)}>
         <div className="delete-button-text">&#x2717;</div>
       </div>
