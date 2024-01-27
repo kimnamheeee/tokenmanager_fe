@@ -44,3 +44,7 @@
   font-weight: bold;
   width: 100%;
 }
+
+.token-time-container {
+  display: flex;
+}
