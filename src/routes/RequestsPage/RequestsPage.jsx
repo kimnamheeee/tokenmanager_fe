@@ -31,6 +31,7 @@ const RequestsPage = () => {
   // }, [tokenTimeList]);
 
   const [isAdding, setIsAdding] = useState(false);
+  const [isAddingToken, setIsAddingToken] = useState(false);
 
   //tokentimeAddButton 클릭시 isAdding state를 true로 변경
   const handleAddButtonClick = () => {
@@ -44,7 +45,7 @@ const RequestsPage = () => {
   return (
     <div className="RequestsPage">
       <div className="request-page-header">
-        <ProjectHeader project={projectId}/>
+        <ProjectHeader project={projectId} />
         <div className="token-time-container">
           <TokenTimeBox />
           {isAdding ? (
@@ -87,19 +88,18 @@ const RequestsPage = () => {
         </div>
       </div>
       <div className="request-container">
-        <div className="request-container-box">
-          <div className="request-container-box-button">available</div>
-          {/* <br></br> */}
-
-          <div className="rqbox-container">
-            <RequestBox />
+        <div className="available-token-container">
+          <div className="request-container-box">
+            <div className="request-container-box-button">available</div>
+            <div className="rqbox-container">
+              <RequestBox />
+            </div>
           </div>
+          <div className="request-plus-button">+</div>
         </div>
 
         <div className="request-container-box">
           <div className="request-container-box-button">expired</div>
-          {/* <br></br> */}
-
           <div className="rqbox-container">
             <RequestBox />
           </div>
