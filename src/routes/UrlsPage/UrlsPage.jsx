@@ -69,19 +69,24 @@ const UrlsPage = () => {
           </div>
         ))}
         {inputOpen && (
-          <div className="url-input-container">
-            <input
-              type="text"
-              value={project.url}
-              onChange={handleNewProjectChange}
-            />
-            <button onClick={handleNewProjectSubmit}>Submit</button>
-            <button onCLick={closeInput}>Cancel</button>
+            <div className="UrlInputBox">
+              <input
+                id="url"
+                type="text"
+                className="url-input-container"
+                value={project.url}
+                onChange={handleNewProjectChange}
+                placeholder="url"
+              />
+              <button onClick={handleNewProjectSubmit} className="url-submit-button">Submit</button>
+              <button onClick={closeInput} className="url-cancel-button">Cancel</button>
             </div>
         )}
-        <button className="url-plus-button" onClick={showInput}>
-          <div className="url-plus-button-text">+</div>
-        </button>
+        <div className="url-plus-button-container">
+          <button className="url-plus-button" onClick={showInput}>
+            <div className="url-plus-button-text">+</div>
+          </button>
+        </div>
       </div>
     </div>
   );
