@@ -10,6 +10,7 @@ const RequestsPage = () => {
       <div className="request-page-header">
         <ProjectHeader />
         <TokenTimeBox />
+        <button className="tokentime-plus-button">+</button>
       </div>
       <div className="request-container">
         <div className="request-container-box">

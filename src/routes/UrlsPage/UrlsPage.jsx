@@ -36,9 +36,25 @@ const UrlsPage = () => {
 
   const showInput = () => {
     setInputOpen(true);
+    setProject({url:""});
   };
 
-  const closeInput = () => {};
+  const handleNewProjectChange = (e) => {
+    setProject({ ...project, url: e.target.value });
+  };
+
+  const handleNewProjectSubmit = async () => {
+    if (project.url) {
+      const createdProject = await createProject(project);
+      setProjectList([...projectList, createdProject]);
+      setInputOpen(false);
+    }
+  };
+
+
+  const closeInput = () => {
+    setInputOpen(false)
+  };
 
   return (
     <div className="UrlsPage">
@@ -52,8 +68,24 @@ const UrlsPage = () => {
             ))}
           </div>
         ))}
-        <div className="url-plus-button">
-          <div className="url-plus-button-text">+</div>
+        {inputOpen && (
+            <div className="UrlInputBox">
+              <input
+                id="url"
+                type="text"
+                className="url-input-container"
+                value={project.url}
+                onChange={handleNewProjectChange}
+                placeholder="url"
+              />
+              <button onClick={handleNewProjectSubmit} className="url-submit-button">Submit</button>
+              <button onClick={closeInput} className="url-cancel-button">Cancel</button>
+            </div>
+        )}
+        <div className="url-plus-button-container">
+          <button className="url-plus-button" onClick={showInput}>
+            <div className="url-plus-button-text">+</div>
+          </button>
         </div>
       </div>
     </div>
