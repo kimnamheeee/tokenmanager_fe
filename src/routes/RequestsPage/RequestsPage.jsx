@@ -6,17 +6,25 @@ import TokenTimeBox from "../../components/RequestBox/TokenTimeBox";
 import RequestBox from "../../components/RequestBox/RequestBox";
 import TokenTimeAddButton from "../../components/RequestBox/TokenTimeAddButton";
 import { getTokenTimeList } from "../../api/api";
+import { useParams } from "react-router-dom";
 
 const RequestsPage = () => {
-  // const [tokenTimeList, setTokenTimeList] = useState([]);
+  const [tokenTimeList, setTokenTimeList] = useState([]);
+  const { projectId } = useParams();
+  const [project, setProject] = useState({
+    project: projectId,
+  });
 
-  // useEffect(() => {
-  //   const fetchTokenTimeList = async () => {
-  //     const tokenTimeList = await getTokenTimeList();
-  //     setTokenTimeList(tokenTimeList);
-  //   };
-  //   fetchTokenTimeList();
-  // }, []);
+  useEffect(() => {
+    console.log("project we are sending", projectId);
+
+    //projectId를 쿼리 파라미터로 getTokenTimeList에 전달
+    const fetchTokenTimeList = async (data) => {
+      const tokenTimeList = await getTokenTimeList(data);
+      setTokenTimeList(tokenTimeList);
+    };
+    fetchTokenTimeList(project);
+  }, []);
 
   // useEffect(() => {
   //   console.log(tokenTimeList);
