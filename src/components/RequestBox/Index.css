@@ -74,13 +74,14 @@
   background-color: blue;
   background-color: #50c8ff;
   height: 4.5vh;
-  width: 5vw;
+  /* width: 5vw; */
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   font-weight: bold;
+  padding: 0 0.5em 0 0.5em;
 }
 
 .token-time-form {
