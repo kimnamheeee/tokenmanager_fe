@@ -5,11 +5,13 @@ import ProjectHeader from "../../components/RequestBox/ProjectHeader";
 import TokenTimeBox from "../../components/RequestBox/TokenTimeBox";
 import RequestBox from "../../components/RequestBox/RequestBox";
 import TokenTimeAddButton from "../../components/RequestBox/TokenTimeAddButton";
-import { getTokenTimeList } from "../../api/api";
+import { getTokenTimeList, getRequestList, getTokenList } from "../../api/api";
 import { useParams } from "react-router-dom";
 
 const RequestsPage = () => {
   const [tokenTimeList, setTokenTimeList] = useState([]);
+  const [requestList, setRequestList] = useState([]);
+  const [tokenList, setTokenList] = useState([]);
   const { projectId } = useParams();
   const [project, setProject] = useState({
     project: projectId,
@@ -27,8 +29,41 @@ const RequestsPage = () => {
   }, []);
 
   // useEffect(() => {
-  //   console.log(tokenTimeList);
-  // }, [tokenTimeList]);
+  //   console.log("project we are sending", projectId);
+
+  //   //projectId를 쿼리 파라미터로 getRequestList에 전달
+  //   const fetchRequestList = async (data) => {
+  //     const requestList = await getRequestList(data);
+  //     setRequestList(requestList);
+  //   };
+  //   fetchRequestList(project);
+  // }, []);
+
+  useEffect(() => {
+    console.log("project we are sending", projectId);
+
+    //projectId를 쿼리 파라미터로 getRequestList에 전달
+    const fetchRequestList = async (data) => {
+      const requestList = await getRequestList(data);
+
+      // requestList.map(async (id)=> {
+      //   const tokenList = await getTokenList(id);
+      //   setTokenList(tokenList);
+      // })
+      setRequestList(requestList);
+    };
+    fetchRequestList(project);
+  }, []);
+
+  
+
+  useEffect(() => {
+    console.log("request", requestList);
+  }, [requestList]);
+
+  // useEffect(() => {
+  //   console.log("token", tokenList);
+  // }, [tokenList]);
 
   const [isAdding, setIsAdding] = useState(false);
 
