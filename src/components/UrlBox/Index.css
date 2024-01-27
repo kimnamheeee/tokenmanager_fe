@@ -8,7 +8,10 @@
   width: 25vw;
   border-radius: 10px;
   margin-right: 0.4vw;
+  text-decoration: none;
+  color: black;
 }
+
 
 .delete-button {
   height: 8vh;

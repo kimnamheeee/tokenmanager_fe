@@ -14,6 +14,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/projects" element={<UrlsPage />} />
           <Route path="/requests" element={<RequestsPage/>}/>
+          <Route path="/requests/:projectId" element={<RequestsPage/>}/>
         </Routes>
       </BrowserRouter>
     </div>

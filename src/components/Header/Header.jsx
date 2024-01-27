@@ -2,9 +2,12 @@ import "./Index.css";
 import { useEffect, useState } from "react";
 import { getCookie } from "../../utils/cookie";
 import { signOut } from "../../api/api";
+import { Link } from "react-router-dom";
+
 
 const Header = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
   useEffect(() => {
     const loggedIn = getCookie("access_token") ? true : false;
@@ -16,10 +19,11 @@ const Header = () => {
     const token = getCookie("refresh_token");
     signOut(token);
   };
+  
 
   return (
     <div className="Header">
-      {isLoggedIn ? <p onClick={handleSignOut}>sign out</p> : <p>sign in</p>}
+      {isLoggedIn ? <p onClick={handleSignOut}>sign out</p> : <Link className="signin-button" to="/">sign in</Link>}
     </div>
   );
 };
