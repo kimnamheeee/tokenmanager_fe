@@ -158,7 +158,7 @@ export const deleteTokenTime = async (id, navigate) => {
   }
 };
 
-export const getTokenTimeList = async () => {
-  const response = await instance.get("/tokentime/");
+export const getTokenTimeList = async (data) => {
+  const response = await instance.get("/tokentime/", { params: data });
   return response.data;
 };
