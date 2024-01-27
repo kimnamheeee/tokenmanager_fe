@@ -83,8 +83,8 @@ export const deleteProject = async (id, navigate) => {
   }
 };
 
-export const getRequestList = async () => {
-  const response = await instance.get("/request/");
+export const getRequestList = async (data) => {
+  const response = await instance.get("/request/",{params: data});
   return response.data;
 };
 
@@ -134,8 +134,8 @@ export const deleteToken = async (id, navigate) => {
   }
 };
 
-export const getTokenList = async () => {
-  const response = await instance.get("/tokens/");
+export const getTokenList = async (data) => {
+  const response = await instance.get("/tokens/", {params : data});
   return response.data;
 };
 
