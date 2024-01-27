@@ -56,7 +56,7 @@ export const createProject = async (data) => {
   } else {
     console.log("[ERROR] error while creating project");
   }
-  return response;
+  return response.data;
 };
 
 export const updateProject = async (id, data, navigate) => {
