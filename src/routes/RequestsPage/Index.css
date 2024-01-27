@@ -166,3 +166,44 @@
 .request-plus-button:hover {
   opacity: 1;
 }
+
+.input-type-and-url {
+  display: flex;
+  align-items: center;
+}
+
+.specurl-input {
+  margin-right: 0.4vw;
+  padding: 0.5em;
+  border-radius: 8px;
+  background-color: #e6e6e6;
+  height: 3.5vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* justify-content: center; */
+  padding-left: 1em;
+  width: 25vw;
+  border: none;
+  font-size: 2.2vh;
+}
+
+.rqbox-input-confirm {
+  background-color: #6a63f6;
+  width: 2vw;
+  height: 2vw;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rqbox-input-cancel {
+  background-color: #6a63f6;
+  width: 2vw;
+  height: 2vw;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

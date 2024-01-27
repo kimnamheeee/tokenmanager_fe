@@ -1,5 +1,6 @@
 import "./Index.css";
 import { useState, useEffect } from "react";
+import Select from "react-select";
 
 import ProjectHeader from "../../components/RequestBox/ProjectHeader";
 import TokenTimeBox from "../../components/RequestBox/TokenTimeBox";
@@ -8,6 +9,9 @@ import TokenTimeAddButton from "../../components/RequestBox/TokenTimeAddButton";
 import { getTokenTimeList } from "../../api/api";
 import { useParams } from "react-router-dom";
 
+import cancel from "../../assets/images/cancel.svg";
+import check from "../../assets/images/check.svg";
+
 const RequestsPage = () => {
   const [tokenTimeList, setTokenTimeList] = useState([]);
   const { projectId } = useParams();
@@ -15,9 +19,15 @@ const RequestsPage = () => {
     project: projectId,
   });
 
-  useEffect(() => {
-    console.log("project we are sending", projectId);
+  const typeOptions = [
+    { value: "GET", label: "GET" },
+    { value: "POST", label: "POST" },
+    { value: "PUT", label: "PUT" },
+    { value: "DELETE", label: "DELETE" },
+    { value: "PATCH", label: "PATCH" },
+  ];
 
+  useEffect(() => {
     //projectId를 쿼리 파라미터로 getTokenTimeList에 전달
     const fetchTokenTimeList = async (data) => {
       const tokenTimeList = await getTokenTimeList(data);
@@ -26,10 +36,6 @@ const RequestsPage = () => {
     fetchTokenTimeList(project);
   }, []);
 
-  // useEffect(() => {
-  //   console.log(tokenTimeList);
-  // }, [tokenTimeList]);
-
   const [isAdding, setIsAdding] = useState(false);
   const [isAddingToken, setIsAddingToken] = useState(false);
 
@@ -37,10 +43,6 @@ const RequestsPage = () => {
   const handleAddButtonClick = () => {
     setIsAdding(true);
   };
-
-  useEffect(() => {
-    console.log(isAdding);
-  }, [isAdding]);
 
   return (
     <div className="RequestsPage">
@@ -95,7 +97,42 @@ const RequestsPage = () => {
               <RequestBox />
             </div>
           </div>
-          <div className="request-plus-button">+</div>
+          {isAddingToken ? (
+            <div>
+              <div className="rqbox-container">
+                <div className="rqbox-input">
+                  <div className="input-type-and-url">
+                    <Select options={typeOptions} />
+                    <input
+                      className="specurl-input"
+                      placeholder="specific request url"
+                    ></input>
+                    <div className="rqbox-input-confirm">
+                      <img src={check} width="20" />
+                    </div>
+                    <div className="rqbox-input-cancel">
+                      <img
+                        src={cancel}
+                        width="20"
+                        onClick={() => setIsAddingToken(false)}
+                      />
+                    </div>
+                  </div>
+                  <div> access token </div>
+                  <div>token content aaaaaaaaaaaaa </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div
+              className="request-plus-button"
+              onClick={() => {
+                setIsAddingToken(true);
+              }}
+            >
+              +
+            </div>
+          )}
         </div>
 
         <div className="request-container-box">
