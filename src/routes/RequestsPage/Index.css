@@ -128,3 +128,16 @@
   margin: 0 0.15em 0 0.15em;
   font-weight: bold;
 }
+
+.tokentime-plus-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: #e6e6e6;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 800;
+  opacity: 0.6;
+}

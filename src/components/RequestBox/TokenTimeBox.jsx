@@ -1,6 +1,15 @@
 import "./Index.css";
 
 const TokenTimeBox = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+  };
+
+  const handleSelectChange = (e) => {
+    
+  };
+
   return (
     <div className="TokenTimeBox">
       <div className="token-time-box">

@@ -83,6 +83,26 @@
   font-weight: bold;
 }
 
+.token-time-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.token-time-input {
+  flex-grow: 1;
+  padding: 5px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.token-time-divider {
+  border-left: 2px solid #ccc;
+  height: 30px;
+  margin-right: 10px;
+}
+
 .time-input {
   display: flex;
   justify-content: space-between;

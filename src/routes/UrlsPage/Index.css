@@ -12,7 +12,7 @@
   height: 50vh;
   width: 64vw;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 10px;
 }
 
 .url-row-container {
@@ -20,12 +20,18 @@
   justify-content: space-between;
 }
 
+.url-plus-button-container {
+  display: flex;
+  justify-content: center;
+  width: 64vw;
+}
+
 .url-plus-button {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 8vh;
-  width: 31.5vw;
+  width: 32vw;
   border-radius: 10px;
   background-color: #6a63f6;
   cursor: pointer;
@@ -33,11 +39,13 @@
   font-size: 2rem;
   font-weight: 800;
   opacity: 0.6;
+  border: 0
 }
 
 .url-plus-button:hover {
   opacity: 1;
 }
+
 
 .abstract-shape2 {
   position: absolute;
@@ -55,4 +63,51 @@
   overflow: hidden;
   height: 40vh;
   width: 40vw;
+}
+
+.UrlInputBox{
+  display: flex;
+}
+
+.url-input-container {
+  background-color: #e6e6e6;
+  height: 8vh;
+  width: 20.8vw;
+  border-radius: 10px;
+  margin-right: 0.4vw;
+  padding-left: 2vw;
+  line-height: 8vh;
+  border: 0
+}
+
+
+.url-submit-button{
+  height: 8vh;
+  width: 4vw;
+  background-color: #6a63f6;
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 800;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1vh;
+  border: 0
+}
+
+.url-cancel-button{
+  height: 8vh;
+  width: 4vw;
+  background-color: #6a63f6;
+  border-radius: 10px;
+  color: #ffffff;
+  font-weight: 800;
+  display: flex;
+  margin-left: 0.3em;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1vh;
+  border: 0
 }
