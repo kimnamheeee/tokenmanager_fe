@@ -50,7 +50,7 @@ const RequestsPage = () => {
   // }, []);
 
   useEffect(() => {
-    console.log("project we are sending", projectId);
+    // console.log("project we are sending", projectId);
 
     //projectId를 쿼리 파라미터로 getRequestList에 전달
     const fetchRequestList = async (data) => {
@@ -65,10 +65,8 @@ const RequestsPage = () => {
     fetchRequestList(project);
   }, []);
 
-  
-
   useEffect(() => {
-    console.log("request", requestList);
+    // console.log("request", requestList);
   }, [requestList]);
 
   // useEffect(() => {
