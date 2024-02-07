@@ -29,6 +29,11 @@ const RequestsPage = () => {
     { value: "PATCH", label: "PATCH" },
   ];
 
+  const tokenTypeOptions = [
+    { value: "accessToken", label: "access_token" },
+    { value: "refreshToken", label: "refresh_token" },
+  ];
+
   useEffect(() => {
     //projectId를 쿼리 파라미터로 getTokenTimeList에 전달
     const fetchTokenTimeList = async (data) => {
@@ -155,7 +160,9 @@ const RequestsPage = () => {
                           />
                         </div>
                       </div>
-                      <div> access token </div>
+                      <div className="token-type-option">
+                        <Select options={tokenTypeOptions} />
+                      </div>
                       <textarea
                         className="rqbox-input-tokencontent"
                         placeholder="token content"

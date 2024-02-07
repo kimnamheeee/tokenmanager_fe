@@ -233,4 +233,10 @@
 
 .requesttype-select {
   margin-right: 0.5em;
+  width: 20.5%;
+}
+
+.token-type-option {
+  width: 20.5%;
+  margin: 0.5em 0 0.5em 0;
 }
