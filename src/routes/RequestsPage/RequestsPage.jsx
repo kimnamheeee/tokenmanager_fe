@@ -113,10 +113,6 @@ const RequestsPage = () => {
     setIsAdding(true);
   };
 
-  useEffect(() => {
-    console.log("Input", requestInput);
-  }, [requestInput]);
-
   return (
     <div className="RequestsPage">
       <div className="request-page-header">
