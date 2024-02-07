@@ -29,7 +29,7 @@ const RequestsPage = () => {
   const [requestInput, setRequestInput] = useState({
     type: "",
     spec_url: "",
-    project_id: projectId,
+    project: projectId,
   });
   const [tokenInput, setTokenInput] = useState({
     token_name: "",
@@ -65,6 +65,24 @@ const RequestsPage = () => {
       ...tokenInput,
       token_name: selectedOption.value,
     });
+  };
+
+  const handleAddRequest = async (data) => {
+    if (window.confirm("등록하시겠습니까?")) {
+      const request = await createRequest(data);
+      setRequestList([...requestList, request]);
+      setRequestInput({
+        type: "",
+        spec_url: "",
+        project: projectId,
+      });
+    } else {
+      setRequestInput({
+        type: "",
+        spec_url: "",
+        project: projectId,
+      });
+    }
   };
 
   const typeOptions = [
@@ -185,7 +203,13 @@ const RequestsPage = () => {
                           onChange={handleRequestInput}
                         ></input>
                         <div className="rqbox-input-confirm">
-                          <img src={check} width="20" />
+                          <img
+                            src={check}
+                            width="20"
+                            onClick={() => {
+                              handleAddRequest(requestInput);
+                            }}
+                          />
                         </div>
                         <div className="rqbox-input-cancel">
                           <img
