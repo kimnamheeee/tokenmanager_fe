@@ -1,9 +1,7 @@
 import "./Index.css";
 
-const TypeBox = () => {
-    return(
-        <div className="TypeBox">POST</div>
-    );
+const TypeBox = ({ type }) => {
+  return <div className="TypeBox">{type}</div>;
 };
 
 export default TypeBox;

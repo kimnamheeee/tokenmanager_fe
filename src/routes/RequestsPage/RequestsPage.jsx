@@ -185,7 +185,9 @@ const RequestsPage = () => {
           <div className="request-container-box">
             <div className="request-container-box-button">available</div>
             <div className="rqbox-container">
-              <RequestBox />
+              {requestList.map((request) => (
+                <RequestBox type={request.type} specUrl={request.spec_url} />
+              ))}
               {isAddingToken ? (
                 <div className="rqbox-container">
                   <div className="rqbox-wrap">
