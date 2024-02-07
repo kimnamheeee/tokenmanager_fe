@@ -132,34 +132,44 @@ const RequestsPage = () => {
             <div className="request-container-box-button">available</div>
             <div className="rqbox-container">
               <RequestBox />
+              {isAddingToken ? (
+                <div className="rqbox-container">
+                  <div className="rqbox-wrap">
+                    <div className="rqbox-input">
+                      <div className="input-type-and-url">
+                        <div className="requesttype-select">
+                          <Select options={typeOptions} />
+                        </div>
+                        <input
+                          className="specurl-input"
+                          placeholder="specific request url"
+                        ></input>
+                        <div className="rqbox-input-confirm">
+                          <img src={check} width="20" />
+                        </div>
+                        <div className="rqbox-input-cancel">
+                          <img
+                            src={cancel}
+                            width="20"
+                            onClick={() => setIsAddingToken(false)}
+                          />
+                        </div>
+                      </div>
+                      <div> access token </div>
+                      <input
+                        className="rqbox-input-tokencontent"
+                        placeholder="token content"
+                      ></input>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div></div>
+              )}
             </div>
           </div>
           {isAddingToken ? (
-            <div>
-              <div className="rqbox-container">
-                <div className="rqbox-input">
-                  <div className="input-type-and-url">
-                    <Select options={typeOptions} />
-                    <input
-                      className="specurl-input"
-                      placeholder="specific request url"
-                    ></input>
-                    <div className="rqbox-input-confirm">
-                      <img src={check} width="20" />
-                    </div>
-                    <div className="rqbox-input-cancel">
-                      <img
-                        src={cancel}
-                        width="20"
-                        onClick={() => setIsAddingToken(false)}
-                      />
-                    </div>
-                  </div>
-                  <div> access token </div>
-                  <div>token content aaaaaaaaaaaaa </div>
-                </div>
-              </div>
-            </div>
+            <div></div>
           ) : (
             <div
               className="request-plus-button"
