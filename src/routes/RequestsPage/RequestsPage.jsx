@@ -123,14 +123,6 @@ const RequestsPage = () => {
     };
   }, []);
 
-  useEffect(() => {
-    console.log("request", requestList);
-  }, [requestList]);
-
-  useEffect(() => {
-    console.log("token", tokenInput);
-  }, [tokenInput]);
-
   const [isAdding, setIsAdding] = useState(false);
   const [isAddingToken, setIsAddingToken] = useState(false);
 
