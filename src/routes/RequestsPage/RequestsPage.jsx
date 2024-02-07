@@ -6,7 +6,13 @@ import ProjectHeader from "../../components/RequestBox/ProjectHeader";
 import TokenTimeBox from "../../components/RequestBox/TokenTimeBox";
 import RequestBox from "../../components/RequestBox/RequestBox";
 import TokenTimeAddButton from "../../components/RequestBox/TokenTimeAddButton";
-import { getTokenTimeList, getRequestList, getTokenList } from "../../api/api";
+import {
+  getTokenTimeList,
+  getRequestList,
+  getTokenList,
+  createRequest,
+  createToken,
+} from "../../api/api";
 import { useParams } from "react-router-dom";
 
 import cancel from "../../assets/images/cancel.svg";
@@ -20,6 +26,46 @@ const RequestsPage = () => {
   const [project, setProject] = useState({
     project: projectId,
   });
+  const [requestInput, setRequestInput] = useState({
+    type: "",
+    spec_url: "",
+    project_id: projectId,
+  });
+  const [tokenInput, setTokenInput] = useState({
+    token_name: "",
+    content: "",
+    request_id: 0,
+  });
+
+  const handleRequestInput = (e) => {
+    const { id, value } = e.target;
+    setRequestInput({
+      ...requestInput,
+      [id]: value,
+    });
+  };
+
+  const handleTokenContentInput = (e) => {
+    const { id, value } = e.target;
+    setTokenInput({
+      ...tokenInput,
+      [id]: value,
+    });
+  };
+
+  const handleTypeOptionChange = (selectedOption) => {
+    setRequestInput({
+      ...requestInput,
+      type: selectedOption.value,
+    });
+  };
+
+  const handleTokenTypeOptionChange = (selectedOption) => {
+    setTokenInput({
+      ...tokenInput,
+      token_name: selectedOption.value,
+    });
+  };
 
   const typeOptions = [
     { value: "GET", label: "GET" },
@@ -30,8 +76,8 @@ const RequestsPage = () => {
   ];
 
   const tokenTypeOptions = [
-    { value: "accessToken", label: "access_token" },
-    { value: "refreshToken", label: "refresh_token" },
+    { value: "access_token", label: "access_token" },
+    { value: "refresh_token", label: "refresh_token" },
   ];
 
   useEffect(() => {
@@ -71,12 +117,19 @@ const RequestsPage = () => {
   }, []);
 
   useEffect(() => {
-    // console.log("request", requestList);
+    const fetchTokenList = async (data) => {
+      const tokenList = await getTokenList(data);
+      setTokenList(tokenList);
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log("request", requestList);
   }, [requestList]);
 
-  // useEffect(() => {
-  //   console.log("token", tokenList);
-  // }, [tokenList]);
+  useEffect(() => {
+    console.log("token", tokenInput);
+  }, [tokenInput]);
 
   const [isAdding, setIsAdding] = useState(false);
   const [isAddingToken, setIsAddingToken] = useState(false);
@@ -85,6 +138,10 @@ const RequestsPage = () => {
   const handleAddButtonClick = () => {
     setIsAdding(true);
   };
+
+  useEffect(() => {
+    console.log("Input", requestInput);
+  }, [requestInput]);
 
   return (
     <div className="RequestsPage">
@@ -143,11 +200,17 @@ const RequestsPage = () => {
                     <div className="rqbox-input">
                       <div className="input-type-and-url">
                         <div className="requesttype-select">
-                          <Select options={typeOptions} />
+                          <Select
+                            options={typeOptions}
+                            onChange={handleTypeOptionChange}
+                          />
                         </div>
                         <input
                           className="specurl-input"
                           placeholder="specific request url"
+                          id="spec_url"
+                          value={requestInput.spec_url}
+                          onChange={handleRequestInput}
                         ></input>
                         <div className="rqbox-input-confirm">
                           <img src={check} width="20" />
@@ -161,11 +224,16 @@ const RequestsPage = () => {
                         </div>
                       </div>
                       <div className="token-type-option">
-                        <Select options={tokenTypeOptions} />
+                        <Select
+                          options={tokenTypeOptions}
+                          onChange={handleTokenTypeOptionChange}
+                        />
                       </div>
                       <textarea
                         className="rqbox-input-tokencontent"
                         placeholder="token content"
+                        id="content"
+                        onChange={handleTokenContentInput}
                       ></textarea>
                     </div>
                   </div>
