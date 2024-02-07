@@ -43,7 +43,7 @@ export const getProjectList = async () => {
 };
 
 export const getProjectDetail = async (id) => {
-  console.log("API CALLED", id);
+  // console.log("API CALLED", id);
   const response = await instance.get(`/project/${id}/`);
   console.log("RESPONSE", response.data);
   return response.data;
@@ -84,7 +84,7 @@ export const deleteProject = async (id, navigate) => {
 };
 
 export const getRequestList = async (data) => {
-  const response = await instance.get("/request/",{params: data});
+  const response = await instance.get("/request/", { params: data });
   return response.data;
 };
 
@@ -135,7 +135,7 @@ export const deleteToken = async (id, navigate) => {
 };
 
 export const getTokenList = async (data) => {
-  const response = await instance.get("/tokens/", {params : data});
+  const response = await instance.get("/tokens/", { params: data });
   return response.data;
 };
 
