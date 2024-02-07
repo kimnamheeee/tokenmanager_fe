@@ -6,7 +6,8 @@ import Timer from "./Timer";
 import TokenBox from "./TokenBox";
 import trashbin from "../../assets/images/trash-bin.png";
 
-const RequestBox = ({ type, specUrl }) => {
+const RequestBox = ({ type, specUrl, token }) => {
+  console.log(type, specUrl, token);
   return (
     <div className="RequestBox">
       <div className="requestbox-container">
@@ -20,7 +21,7 @@ const RequestBox = ({ type, specUrl }) => {
             </div>
           </div>
           <div className="requestbox-token">
-            <TokenBox />
+            <TokenBox content={token.content} tokenType={token.token_name} />
           </div>
         </div>
       </div>

@@ -202,7 +202,11 @@ const RequestsPage = () => {
             <div className="request-container-box-button">available</div>
             <div className="rqbox-container">
               {requestList.map((request) => (
-                <RequestBox type={request.type} specUrl={request.spec_url} />
+                <RequestBox
+                  type={request.type}
+                  specUrl={request.spec_url}
+                  token={tokenList[request.id][0]}
+                />
               ))}
               {isAddingToken ? (
                 <div className="rqbox-container">
@@ -275,9 +279,7 @@ const RequestsPage = () => {
 
         <div className="request-container-box">
           <div className="request-container-box-button">expired</div>
-          <div className="rqbox-container">
-            <RequestBox />
-          </div>
+          <div className="rqbox-container">{/* <RequestBox /> */}</div>
         </div>
       </div>
     </div>
