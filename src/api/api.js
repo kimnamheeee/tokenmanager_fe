@@ -38,14 +38,14 @@ export const signOut = async (token) => {
 
 export const getProjectList = async () => {
   const response = await instanceWithToken.get("/project/");
-  console.log("got response", response.data);
+  // console.log("got response", response.data);
   return response.data;
 };
 
 export const getProjectDetail = async (id) => {
   // console.log("API CALLED", id);
   const response = await instance.get(`/project/${id}/`);
-  console.log("RESPONSE", response.data);
+  // console.log("RESPONSE", response.data);
   return response.data;
 };
 
