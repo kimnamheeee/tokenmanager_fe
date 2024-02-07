@@ -156,10 +156,10 @@ const RequestsPage = () => {
                         </div>
                       </div>
                       <div> access token </div>
-                      <input
+                      <textarea
                         className="rqbox-input-tokencontent"
                         placeholder="token content"
-                      ></input>
+                      ></textarea>
                     </div>
                   </div>
                 </div>

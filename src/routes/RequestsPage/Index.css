@@ -213,9 +213,12 @@
 .rqbox-input-tokencontent {
   background-color: #e6e6e6;
   border: none;
-  height: 15vh;
-  width: 100%;
+  width: 96%;
   border-radius: 10px;
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-bottom: 10vh;
+  padding-right: 1em;
 }
 
 .rqbox-wrap {
