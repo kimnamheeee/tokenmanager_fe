@@ -22,6 +22,7 @@ const RequestsPage = () => {
   const [tokenTimeList, setTokenTimeList] = useState([]);
   const [requestList, setRequestList] = useState([]);
   const [tokenList, setTokenList] = useState([]);
+  const [requestIds, setRequestIds] = useState([]);
   const { projectId } = useParams();
   const [project, setProject] = useState({
     project: projectId,
@@ -127,11 +128,20 @@ const RequestsPage = () => {
   }, []);
 
   useEffect(() => {
+    if (requestList.length > 0) {
+      const requestIds = requestList.map((request) => request.id);
+      setRequestIds(requestIds);
+    }
+  }, [requestList]);
+
+  useEffect(() => {
+    //requestIds를 순회하며 쿼리 파라미터로 getTokenList에 전달
     const fetchTokenList = async (data) => {
-      const tokenList = await getTokenList(data);
-      setTokenList(tokenList);
+      const token = await getTokenList(data);
+      setTokenList({ ...tokenList, [data.request]: token });
     };
-  }, []);
+    requestIds.map((requestId) => fetchTokenList({ request: requestId }));
+  }, [requestIds]);
 
   const [isAdding, setIsAdding] = useState(false);
   const [isAddingToken, setIsAddingToken] = useState(false);
