@@ -34,7 +34,7 @@ const RequestsPage = () => {
   const [tokenInput, setTokenInput] = useState({
     token_name: "",
     content: "",
-    request_id: 0,
+    request: 0,
   });
 
   const handleRequestInput = (e) => {
@@ -76,6 +76,16 @@ const RequestsPage = () => {
         spec_url: "",
         project: projectId,
       });
+      if (request) {
+        const requestId = request.id;
+        const token = await createToken({ ...tokenInput, request: requestId });
+        setTokenList([...tokenList, token]);
+        setTokenInput({
+          token_name: "",
+          content: "",
+          request: 0,
+        });
+      }
     } else {
       setRequestInput({
         type: "",
