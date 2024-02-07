@@ -94,7 +94,7 @@ export const createRequest = async (data) => {
     try {
       response = await instanceWithToken.post("/request/", data);
       if (response && response.status === 201) {
-        return response;
+        return response.data;
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
