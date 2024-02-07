@@ -89,28 +89,10 @@ const RequestsPage = () => {
     fetchTokenTimeList(project);
   }, []);
 
-  // useEffect(() => {
-  //   console.log("project we are sending", projectId);
-
-  //   //projectId를 쿼리 파라미터로 getRequestList에 전달
-  //   const fetchRequestList = async (data) => {
-  //     const requestList = await getRequestList(data);
-  //     setRequestList(requestList);
-  //   };
-  //   fetchRequestList(project);
-  // }, []);
-
   useEffect(() => {
-    // console.log("project we are sending", projectId);
-
     //projectId를 쿼리 파라미터로 getRequestList에 전달
     const fetchRequestList = async (data) => {
       const requestList = await getRequestList(data);
-
-      // requestList.map(async (id)=> {
-      //   const tokenList = await getTokenList(id);
-      //   setTokenList(tokenList);
-      // })
       setRequestList(requestList);
     };
     fetchRequestList(project);
