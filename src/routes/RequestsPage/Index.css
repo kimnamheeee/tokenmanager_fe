@@ -20,6 +20,7 @@
   width: 100%;
   height: 100%;
   margin: 20;
+  /* background-color: red; */
 }
 
 .request-container-box {
@@ -173,7 +174,7 @@
 }
 
 .specurl-input {
-  margin-right: 0.4vw;
+  margin-right: 0.8vw;
   padding: 0.5em;
   border-radius: 8px;
   background-color: #e6e6e6;
@@ -183,7 +184,7 @@
   align-items: center;
   /* justify-content: center; */
   padding-left: 1em;
-  width: 25vw;
+  width: 24vw;
   border: none;
   font-size: 2.2vh;
 }
@@ -196,6 +197,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-right: 0.5em;
 }
 
 .rqbox-input-cancel {
@@ -206,4 +208,35 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.rqbox-input-tokencontent {
+  background-color: #e6e6e6;
+  border: none;
+  width: 96%;
+  border-radius: 10px;
+  padding-top: 1em;
+  padding-left: 1em;
+  padding-bottom: 10vh;
+  padding-right: 1em;
+}
+
+.rqbox-wrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: white;
+  margin: 0 1.5em 1.5em 1.5em;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.requesttype-select {
+  margin-right: 0.5em;
+  width: 20.5%;
+}
+
+.token-type-option {
+  width: 20.5%;
+  margin: 0.5em 0 0.5em 0;
 }

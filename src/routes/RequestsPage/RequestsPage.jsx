@@ -6,7 +6,13 @@ import ProjectHeader from "../../components/RequestBox/ProjectHeader";
 import TokenTimeBox from "../../components/RequestBox/TokenTimeBox";
 import RequestBox from "../../components/RequestBox/RequestBox";
 import TokenTimeAddButton from "../../components/RequestBox/TokenTimeAddButton";
-import { getTokenTimeList, getRequestList, getTokenList } from "../../api/api";
+import {
+  getTokenTimeList,
+  getRequestList,
+  getTokenList,
+  createRequest,
+  createToken,
+} from "../../api/api";
 import { useParams } from "react-router-dom";
 
 import cancel from "../../assets/images/cancel.svg";
@@ -16,10 +22,79 @@ const RequestsPage = () => {
   const [tokenTimeList, setTokenTimeList] = useState([]);
   const [requestList, setRequestList] = useState([]);
   const [tokenList, setTokenList] = useState([]);
+  const [requestIds, setRequestIds] = useState([]);
   const { projectId } = useParams();
   const [project, setProject] = useState({
     project: projectId,
   });
+  const [requestInput, setRequestInput] = useState({
+    type: "",
+    spec_url: "",
+    project: projectId,
+  });
+  const [tokenInput, setTokenInput] = useState({
+    token_name: "",
+    content: "",
+    request: 0,
+  });
+
+  const handleRequestInput = (e) => {
+    const { id, value } = e.target;
+    setRequestInput({
+      ...requestInput,
+      [id]: value,
+    });
+  };
+
+  const handleTokenContentInput = (e) => {
+    const { id, value } = e.target;
+    setTokenInput({
+      ...tokenInput,
+      [id]: value,
+    });
+  };
+
+  const handleTypeOptionChange = (selectedOption) => {
+    setRequestInput({
+      ...requestInput,
+      type: selectedOption.value,
+    });
+  };
+
+  const handleTokenTypeOptionChange = (selectedOption) => {
+    setTokenInput({
+      ...tokenInput,
+      token_name: selectedOption.value,
+    });
+  };
+
+  const handleAddRequest = async (data) => {
+    if (window.confirm("등록하시겠습니까?")) {
+      const request = await createRequest(data);
+      setRequestList([...requestList, request]);
+      setRequestInput({
+        type: "",
+        spec_url: "",
+        project: projectId,
+      });
+      if (request) {
+        const requestId = request.id;
+        const token = await createToken({ ...tokenInput, request: requestId });
+        setTokenList([...tokenList, token]);
+        setTokenInput({
+          token_name: "",
+          content: "",
+          request: 0,
+        });
+      }
+    } else {
+      setRequestInput({
+        type: "",
+        spec_url: "",
+        project: projectId,
+      });
+    }
+  };
 
   const typeOptions = [
     { value: "GET", label: "GET" },
@@ -27,6 +102,11 @@ const RequestsPage = () => {
     { value: "PUT", label: "PUT" },
     { value: "DELETE", label: "DELETE" },
     { value: "PATCH", label: "PATCH" },
+  ];
+
+  const tokenTypeOptions = [
+    { value: "access_token", label: "access_token" },
+    { value: "refresh_token", label: "refresh_token" },
   ];
 
   useEffect(() => {
@@ -38,42 +118,30 @@ const RequestsPage = () => {
     fetchTokenTimeList(project);
   }, []);
 
-  // useEffect(() => {
-  //   console.log("project we are sending", projectId);
-
-  //   //projectId를 쿼리 파라미터로 getRequestList에 전달
-  //   const fetchRequestList = async (data) => {
-  //     const requestList = await getRequestList(data);
-  //     setRequestList(requestList);
-  //   };
-  //   fetchRequestList(project);
-  // }, []);
-
   useEffect(() => {
-    console.log("project we are sending", projectId);
-
     //projectId를 쿼리 파라미터로 getRequestList에 전달
     const fetchRequestList = async (data) => {
       const requestList = await getRequestList(data);
-
-      // requestList.map(async (id)=> {
-      //   const tokenList = await getTokenList(id);
-      //   setTokenList(tokenList);
-      // })
       setRequestList(requestList);
     };
     fetchRequestList(project);
   }, []);
 
-  
-
   useEffect(() => {
-    console.log("request", requestList);
+    if (requestList.length > 0) {
+      const requestIds = requestList.map((request) => request.id);
+      setRequestIds(requestIds);
+    }
   }, [requestList]);
 
-  // useEffect(() => {
-  //   console.log("token", tokenList);
-  // }, [tokenList]);
+  useEffect(() => {
+    //requestIds를 순회하며 쿼리 파라미터로 getTokenList에 전달
+    const fetchTokenList = async (data) => {
+      const token = await getTokenList(data);
+      setTokenList({ ...tokenList, [data.request]: token });
+    };
+    requestIds.map((requestId) => fetchTokenList({ request: requestId }));
+  }, [requestIds]);
 
   const [isAdding, setIsAdding] = useState(false);
   const [isAddingToken, setIsAddingToken] = useState(false);
@@ -133,35 +201,70 @@ const RequestsPage = () => {
           <div className="request-container-box">
             <div className="request-container-box-button">available</div>
             <div className="rqbox-container">
-              <RequestBox />
+              {requestList.map((request) => (
+                <RequestBox
+                  type={request.type}
+                  specUrl={request.spec_url}
+                  token={tokenList[request.id][0]}
+                />
+              ))}
+              {isAddingToken ? (
+                <div className="rqbox-container">
+                  <div className="rqbox-wrap">
+                    <div className="rqbox-input">
+                      <div className="input-type-and-url">
+                        <div className="requesttype-select">
+                          <Select
+                            options={typeOptions}
+                            onChange={handleTypeOptionChange}
+                          />
+                        </div>
+                        <input
+                          className="specurl-input"
+                          placeholder="specific request url"
+                          id="spec_url"
+                          value={requestInput.spec_url}
+                          onChange={handleRequestInput}
+                        ></input>
+                        <div className="rqbox-input-confirm">
+                          <img
+                            src={check}
+                            width="20"
+                            onClick={() => {
+                              handleAddRequest(requestInput);
+                            }}
+                          />
+                        </div>
+                        <div className="rqbox-input-cancel">
+                          <img
+                            src={cancel}
+                            width="20"
+                            onClick={() => setIsAddingToken(false)}
+                          />
+                        </div>
+                      </div>
+                      <div className="token-type-option">
+                        <Select
+                          options={tokenTypeOptions}
+                          onChange={handleTokenTypeOptionChange}
+                        />
+                      </div>
+                      <textarea
+                        className="rqbox-input-tokencontent"
+                        placeholder="token content"
+                        id="content"
+                        onChange={handleTokenContentInput}
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div></div>
+              )}
             </div>
           </div>
           {isAddingToken ? (
-            <div>
-              <div className="rqbox-container">
-                <div className="rqbox-input">
-                  <div className="input-type-and-url">
-                    <Select options={typeOptions} />
-                    <input
-                      className="specurl-input"
-                      placeholder="specific request url"
-                    ></input>
-                    <div className="rqbox-input-confirm">
-                      <img src={check} width="20" />
-                    </div>
-                    <div className="rqbox-input-cancel">
-                      <img
-                        src={cancel}
-                        width="20"
-                        onClick={() => setIsAddingToken(false)}
-                      />
-                    </div>
-                  </div>
-                  <div> access token </div>
-                  <div>token content aaaaaaaaaaaaa </div>
-                </div>
-              </div>
-            </div>
+            <div></div>
           ) : (
             <div
               className="request-plus-button"
@@ -176,9 +279,7 @@ const RequestsPage = () => {
 
         <div className="request-container-box">
           <div className="request-container-box-button">expired</div>
-          <div className="rqbox-container">
-            <RequestBox />
-          </div>
+          <div className="rqbox-container">{/* <RequestBox /> */}</div>
         </div>
       </div>
     </div>
