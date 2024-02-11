@@ -23,6 +23,7 @@ const RequestsPage = () => {
   const [requestList, setRequestList] = useState([]);
   const [tokenList, setTokenList] = useState([]);
   const [requestIds, setRequestIds] = useState([]);
+  const [tokenTypeOptions, setTokenTypeOptions] = useState([]);
   const { projectId } = useParams();
   const [project, setProject] = useState({
     project: projectId,
@@ -104,11 +105,6 @@ const RequestsPage = () => {
     { value: "PATCH", label: "PATCH" },
   ];
 
-  const tokenTypeOptions = [
-    { value: "access_token", label: "access_token" },
-    { value: "refresh_token", label: "refresh_token" },
-  ];
-
   useEffect(() => {
     //projectId를 쿼리 파라미터로 getTokenTimeList에 전달
     const fetchTokenTimeList = async (data) => {
@@ -119,20 +115,40 @@ const RequestsPage = () => {
   }, []);
 
   useEffect(() => {
+    const tokenTypes = tokenTimeList.map((tokenTime) => {
+      return {
+        value: tokenTime.tokenname,
+        label: tokenTime.tokenname,
+      };
+    });
+    setTokenTypeOptions(tokenTypes);
+  }, [tokenTimeList]);
+
+  useEffect(() => {
     //projectId를 쿼리 파라미터로 getRequestList에 전달
     const fetchRequestList = async (data) => {
-      const requestList = await getRequestList(data);
-      setRequestList(requestList);
+      // console.log("FETCHING REQUEST LIST");
+      const res = await getRequestList(data);
+      // console.log("FETCHED REQUEST LIST", res);
+      if (res.length !== 0) {
+        // console.log("SETTING INITIALIZED", res);
+        // setRequestList(res);
+      }
     };
     fetchRequestList(project);
   }, []);
 
   useEffect(() => {
-    if (requestList.length > 0) {
-      const requestIds = requestList.map((request) => request.id);
-      setRequestIds(requestIds);
-    }
+    console.log("REQUEST LIST CHANGED", requestList);
   }, [requestList]);
+
+  // useEffect(() => {
+  //   if (requestList.length !== 0) {
+  //     console.log("REQUEST LIST CHANGED", requestList);
+  //     const requestIds = requestList.map((request) => request.id);
+  //     setRequestIds(requestIds);
+  //   }
+  // }, [requestList]);
 
   useEffect(() => {
     //requestIds를 순회하며 쿼리 파라미터로 getTokenList에 전달
@@ -141,6 +157,7 @@ const RequestsPage = () => {
       setTokenList({ ...tokenList, [data.request]: token });
     };
     requestIds.map((requestId) => fetchTokenList({ request: requestId }));
+    console.log("FETCHED TOKEN LIST", tokenList);
   }, [requestIds]);
 
   const [isAdding, setIsAdding] = useState(false);
@@ -205,7 +222,7 @@ const RequestsPage = () => {
                 <RequestBox
                   type={request.type}
                   specUrl={request.spec_url}
-                  token={tokenList[request.id][0]}
+                  token={tokenList[request.id]}
                 />
               ))}
               {isAddingToken ? (
