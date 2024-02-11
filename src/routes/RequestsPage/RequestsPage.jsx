@@ -132,32 +132,39 @@ const RequestsPage = () => {
       // console.log("FETCHED REQUEST LIST", res);
       if (res.length !== 0) {
         // console.log("SETTING INITIALIZED", res);
-        // setRequestList(res);
+        setRequestList(res);
       }
     };
     fetchRequestList(project);
   }, []);
 
   useEffect(() => {
-    console.log("REQUEST LIST CHANGED", requestList);
+    if (requestList.length !== 0) {
+      const requestIds = requestList.map((request) => request.id);
+      setRequestIds(requestIds);
+    }
   }, [requestList]);
-
-  // useEffect(() => {
-  //   if (requestList.length !== 0) {
-  //     console.log("REQUEST LIST CHANGED", requestList);
-  //     const requestIds = requestList.map((request) => request.id);
-  //     setRequestIds(requestIds);
-  //   }
-  // }, [requestList]);
 
   useEffect(() => {
     //requestIds를 순회하며 쿼리 파라미터로 getTokenList에 전달
     const fetchTokenList = async (data) => {
-      const token = await getTokenList(data);
-      setTokenList({ ...tokenList, [data.request]: token });
+      const tokenArray = await getTokenList(data);
+      const token = tokenArray[0];
+      setTokenList((prevTokenList) => {
+        // 이전 토큰 리스트에서 이미 있는 토큰인지 확인
+        if (
+          !prevTokenList.find((existingToken) => existingToken.id === token.id)
+        ) {
+          // 중복되지 않는 경우 새로운 토큰 추가
+          return [...prevTokenList, token];
+        } else {
+          // 이미 존재하는 토큰인 경우 이전 상태 그대로 반환
+          return prevTokenList;
+        }
+      });
     };
-    requestIds.map((requestId) => fetchTokenList({ request: requestId }));
-    console.log("FETCHED TOKEN LIST", tokenList);
+    // requestIds를 이용하여 토큰 리스트 가져오기
+    requestIds.forEach((requestId) => fetchTokenList({ request: requestId }));
   }, [requestIds]);
 
   const [isAdding, setIsAdding] = useState(false);
@@ -222,7 +229,9 @@ const RequestsPage = () => {
                 <RequestBox
                   type={request.type}
                   specUrl={request.spec_url}
-                  token={tokenList[request.id]}
+                  token={tokenList.find(
+                    (token) => token.request === request.id
+                  )}
                 />
               ))}
               {isAddingToken ? (

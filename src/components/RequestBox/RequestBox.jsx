@@ -7,7 +7,6 @@ import TokenBox from "./TokenBox";
 import trashbin from "../../assets/images/trash-bin.png";
 
 const RequestBox = ({ type, specUrl, token }) => {
-  console.log(type, specUrl, token);
   return (
     <div className="RequestBox">
       <div className="requestbox-container">
@@ -21,7 +20,11 @@ const RequestBox = ({ type, specUrl, token }) => {
             </div>
           </div>
           <div className="requestbox-token">
-            <TokenBox content={token.content} tokenType={token.token_name} />
+            {token ? (
+              <TokenBox content={token.content} tokenType={token.token_name} />
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
       </div>
