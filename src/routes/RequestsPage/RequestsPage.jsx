@@ -12,6 +12,7 @@ import {
   getTokenList,
   createRequest,
   createToken,
+  createTokenTime,
 } from "../../api/api";
 import { useParams } from "react-router-dom";
 
@@ -38,6 +39,22 @@ const RequestsPage = () => {
     content: "",
     request: 0,
   });
+
+  const [tokenTimeDivInput, setTokenTimeDivInput] = useState({
+    hour: "",
+    minute: "",
+    second: "",
+  });
+
+  const [tokenTimeInput, setTokenTimeInput] = useState({
+    tokenname: "",
+    timelimit: "",
+    project: projectId,
+  });
+
+  useEffect(() => {
+    console.log("tokenTimeInput", tokenTimeInput);
+  }, [tokenTimeInput]);
 
   const handleRequestInput = (e) => {
     const { id, value } = e.target;
@@ -69,6 +86,37 @@ const RequestsPage = () => {
     });
   };
 
+  const handleTokenInputChange = (field, e) => {
+    switch (field) {
+      case "token_name":
+        setTokenTimeInput({
+          ...tokenTimeInput,
+          tokenname: e.target.value,
+        });
+        break;
+      case "hour":
+        setTokenTimeDivInput({
+          ...tokenTimeDivInput,
+          hour: e.target.value,
+        });
+        break;
+      case "minute":
+        setTokenTimeDivInput({
+          ...tokenTimeDivInput,
+          minute: e.target.value,
+        });
+        break;
+      case "second":
+        setTokenTimeDivInput({
+          ...tokenTimeDivInput,
+          second: e.target.value,
+        });
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleAddRequest = async (data) => {
     if (window.confirm("등록하시겠습니까?")) {
       const request = await createRequest(data);
@@ -97,6 +145,27 @@ const RequestsPage = () => {
     }
   };
 
+  const handleAddTokenTime = async (data) => {
+    if (window.confirm("등록하시겠습니까?")) {
+      const timeLimit = `${tokenTimeDivInput.hour}:${tokenTimeDivInput.minute}:${tokenTimeDivInput.second}`;
+      data.timelimit = timeLimit;
+      console.log("DATA", data);
+      const tokenTime = await createTokenTime(data);
+      setTokenTimeList([...tokenTimeList, tokenTime]);
+      setTokenTimeInput({
+        tokenname: "",
+        timelimit: "",
+        project: projectId,
+      });
+    } else {
+      setTokenTimeInput({
+        tokenname: "",
+        timelimit: "",
+        project: projectId,
+      });
+    }
+  };
+
   const typeOptions = [
     { value: "GET", label: "GET" },
     { value: "POST", label: "POST" },
@@ -113,10 +182,6 @@ const RequestsPage = () => {
     };
     fetchTokenTimeList(project);
   }, []);
-
-  useEffect(() => {
-    console.log("tokenTimeList", tokenTimeList);
-  }, [tokenTimeList]);
 
   useEffect(() => {
     const tokenTypes = tokenTimeList.map((tokenTime) => {
@@ -194,26 +259,35 @@ const RequestsPage = () => {
               <input
                 className="tokentime-add-input tokenname"
                 placeholder="token name"
+                onChange={(e) => handleTokenInputChange("token_name", e)}
               ></input>
               <div className="timeinput">
                 <input
                   className="tokentime-add-input time"
                   placeholder="H"
+                  onChange={(e) => handleTokenInputChange("hour", e)}
                 ></input>
                 <div className="time-divider">:</div>
                 <input
                   className="tokentime-add-input time"
                   placeholder="M"
                   maxLength={2}
+                  onChange={(e) => handleTokenInputChange("minute", e)}
                 ></input>
                 <div className="time-divider">:</div>
                 <input
                   className="tokentime-add-input time"
                   placeholder="S"
                   maxLength={2}
+                  onChange={(e) => handleTokenInputChange("second", e)}
                 ></input>
               </div>
-              <div className="tokentime-add-submit">submit</div>
+              <div
+                className="tokentime-add-submit"
+                onClick={() => handleAddTokenTime(tokenTimeInput)}
+              >
+                submit
+              </div>
               <div
                 className="tokentime-add-cancel"
                 onClick={() => setIsAdding(false)}
@@ -235,7 +309,6 @@ const RequestsPage = () => {
             <div className="rqbox-container">
               {requestList.map((request) => (
                 <RequestBox
-                  requestId = {request.id}
                   type={request.type}
                   specUrl={request.spec_url}
                   token={tokenList.find(
