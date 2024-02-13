@@ -1,6 +1,8 @@
 import "./Index.css";
 
-const TokenTimeBox = () => {
+const TokenTimeBox = ({ tokenTime }) => {
+  console.log(tokenTime);
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -10,8 +12,8 @@ const TokenTimeBox = () => {
   return (
     <div className="TokenTimeBox">
       <div className="token-time-box">
-        <div className="token-name">accss_token</div>
-        <div className="token-duration">00:30:00</div>
+        <div className="token-name">{tokenTime.tokenname}</div>
+        <div className="token-duration">{tokenTime.timelimit}</div>
       </div>
     </div>
   );
