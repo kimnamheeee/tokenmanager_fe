@@ -129,6 +129,29 @@
   margin-bottom: -0.5vh;
 }
 
+.token-time-update-button{
+  background-color: #50c8ff;
+  width: 2vw;
+  height: 2vw;
+  border-radius: 50%;
+  /* margin-top: 0.5vh; */
+  margin-right: 0.5vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.update-icon {
+  width: 1.3vw;
+  height: 1.3vw;
+  color: white;
+}
+
+.token-time-button-container {
+  display: flex;
+  gap: 9px;
+}
+
 .Timer {
   background-color: red;
   width: 2vw;
