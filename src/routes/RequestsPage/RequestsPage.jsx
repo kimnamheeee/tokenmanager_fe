@@ -136,6 +136,7 @@ const RequestsPage = () => {
           request: 0,
         });
       }
+      setIsAddingToken(false);
     } else {
       setRequestInput({
         type: "",
@@ -157,6 +158,7 @@ const RequestsPage = () => {
         timelimit: "",
         project: projectId,
       });
+      setIsAdding(false);
     } else {
       setTokenTimeInput({
         tokenname: "",
