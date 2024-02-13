@@ -24,6 +24,10 @@
   overflow-y: auto;
 }
 
+.rqbox-container-new {
+  margin-top: 1.5em;
+}
+
 .request-container-box {
   /* width: 100vw; */
   /* height: 200; */

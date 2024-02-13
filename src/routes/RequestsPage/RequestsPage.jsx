@@ -311,18 +311,6 @@ const RequestsPage = () => {
           <div className="request-container-box">
             <div className="request-container-box-button">available</div>
             <div className="rqbox-container">
-              {requestList
-                .slice()
-                .reverse()
-                .map((request) => (
-                  <RequestBox
-                    type={request.type}
-                    specUrl={request.spec_url}
-                    token={tokenList.find(
-                      (token) => token.request === request.id
-                    )}
-                  />
-                ))}
               {isAddingToken ? (
                 <div className="rqbox-container-new">
                   <div className="rqbox-wrap">
@@ -376,6 +364,18 @@ const RequestsPage = () => {
               ) : (
                 <div></div>
               )}
+              {requestList
+                .slice()
+                .reverse()
+                .map((request) => (
+                  <RequestBox
+                    type={request.type}
+                    specUrl={request.spec_url}
+                    token={tokenList.find(
+                      (token) => token.request === request.id
+                    )}
+                  />
+                ))}
             </div>
           </div>
           {isAddingToken ? (
