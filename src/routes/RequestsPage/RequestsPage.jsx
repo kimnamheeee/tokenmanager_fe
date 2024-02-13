@@ -225,7 +225,9 @@ const RequestsPage = () => {
         setTokenList((prevTokenList) => {
           // 이전 토큰 리스트에서 이미 있는 토큰인지 확인
           if (
-            !prevTokenList.find((existingToken) => existingToken.id === token.id)
+            !prevTokenList.find(
+              (existingToken) => existingToken.id === token.id
+            )
           ) {
             // 중복되지 않는 경우 새로운 토큰 추가
             return [...prevTokenList, token];
@@ -309,17 +311,8 @@ const RequestsPage = () => {
           <div className="request-container-box">
             <div className="request-container-box-button">available</div>
             <div className="rqbox-container">
-              {requestList.map((request) => (
-                <RequestBox
-                  type={request.type}
-                  specUrl={request.spec_url}
-                  token={tokenList.find(
-                    (token) => token.request === request.id
-                  )}
-                />
-              ))}
               {isAddingToken ? (
-                <div className="rqbox-container">
+                <div className="rqbox-container-new">
                   <div className="rqbox-wrap">
                     <div className="rqbox-input">
                       <div className="input-type-and-url">
@@ -371,6 +364,18 @@ const RequestsPage = () => {
               ) : (
                 <div></div>
               )}
+              {requestList
+                .slice()
+                .reverse()
+                .map((request) => (
+                  <RequestBox
+                    type={request.type}
+                    specUrl={request.spec_url}
+                    token={tokenList.find(
+                      (token) => token.request === request.id
+                    )}
+                  />
+                ))}
             </div>
           </div>
           {isAddingToken ? (
