@@ -159,6 +159,16 @@ export const deleteTokenTime = async (id, navigate) => {
   }
 };
 
+export const updateTokenTime = async (id, data, navigate) => {
+  const response = await instanceWithToken.put(`/tokentime/${id}/`, data);
+  if (response.status === 200) {
+    console.log("TOKEN TIME UPDATE SUCCESS");
+  } else {
+    console.log("[ERROR] error while updating token time");
+  }
+  return response.data;
+};
+
 export const getTokenTimeList = async (data) => {
   const response = await instance.get("/tokentime/", { params: data });
   return response.data;
