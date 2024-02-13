@@ -1,8 +1,6 @@
 import "./Index.css";
 
 const TokenTimeBox = ({ tokenTime }) => {
-  console.log(tokenTime);
-
   const handleSubmit = (e) => {
     e.preventDefault();
   };
