@@ -227,6 +227,7 @@ const RequestsPage = () => {
             <div className="rqbox-container">
               {requestList.map((request) => (
                 <RequestBox
+                  requestId = {request.id}
                   type={request.type}
                   specUrl={request.spec_url}
                   token={tokenList.find(
