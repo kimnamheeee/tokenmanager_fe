@@ -302,10 +302,11 @@ const RequestsPage = () => {
             </div>
           )}
         </div>
-
-        <div className="request-container-box">
-          <div className="request-container-box-button">expired</div>
-          <div className="rqbox-container">{/* <RequestBox /> */}</div>
+        <div className="expired-token-container">
+          <div className="request-container-box">
+            <div className="request-container-box-button">expired</div>
+            <div className="rqbox-container">{/* <RequestBox /> */}</div>
+          </div>
         </div>
       </div>
     </div>
