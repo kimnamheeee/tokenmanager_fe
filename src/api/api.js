@@ -146,7 +146,7 @@ export const createTokenTime = async (data) => {
   } else {
     console.log("[ERROR] error while creating token time");
   }
-  return response;
+  return response.data;
 };
 
 export const deleteTokenTime = async (id, navigate) => {
