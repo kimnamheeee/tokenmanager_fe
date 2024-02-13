@@ -225,7 +225,9 @@ const RequestsPage = () => {
         setTokenList((prevTokenList) => {
           // 이전 토큰 리스트에서 이미 있는 토큰인지 확인
           if (
-            !prevTokenList.find((existingToken) => existingToken.id === token.id)
+            !prevTokenList.find(
+              (existingToken) => existingToken.id === token.id
+            )
           ) {
             // 중복되지 않는 경우 새로운 토큰 추가
             return [...prevTokenList, token];
@@ -319,7 +321,7 @@ const RequestsPage = () => {
                 />
               ))}
               {isAddingToken ? (
-                <div className="rqbox-container">
+                <div className="rqbox-container-new">
                   <div className="rqbox-wrap">
                     <div className="rqbox-input">
                       <div className="input-type-and-url">
