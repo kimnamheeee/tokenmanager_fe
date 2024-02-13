@@ -115,6 +115,10 @@ const RequestsPage = () => {
   }, []);
 
   useEffect(() => {
+    console.log("tokenTimeList", tokenTimeList);
+  }, [tokenTimeList]);
+
+  useEffect(() => {
     const tokenTypes = tokenTimeList.map((tokenTime) => {
       return {
         value: tokenTime.tokenname,
@@ -180,7 +184,9 @@ const RequestsPage = () => {
       <div className="request-page-header">
         <ProjectHeader project={projectId} />
         <div className="token-time-container">
-          <TokenTimeBox />
+          {tokenTimeList.map((tokenTime) => (
+            <TokenTimeBox tokenTime={tokenTime} />
+          ))}
           {isAdding ? (
             <div className="tokentime-add-container">
               <input
