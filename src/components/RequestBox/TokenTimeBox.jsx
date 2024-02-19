@@ -2,12 +2,9 @@ import "./Index.css";
 import trashbin from "../../assets/images/trash-bin.png";
 import pencil from "../../assets/images/pencil.png";
 import { useState, useEffect } from "react";
+import { updateTokenTime } from "../../api/api";
 
 const TokenTimeBox = ({ tokenTime }) => {
-  console.log("tokenTime", tokenTime);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
 
   const [tokenTimeDivInput, setTokenTimeDivInput] = useState({
     hour: tokenTime.timelimit.split(":")[0],
@@ -16,6 +13,7 @@ const TokenTimeBox = ({ tokenTime }) => {
   });
 
   const [tokenTimeInput, setTokenTimeInput] = useState({
+    id: tokenTime.id,
     tokenname: tokenTime.tokenname,
     timelimit: "",
     project: tokenTime.project,
@@ -50,11 +48,21 @@ const TokenTimeBox = ({ tokenTime }) => {
       default:
         break;
     }
+    const updatedTimeLimit = `${tokenTimeDivInput.hour ? tokenTimeDivInput.hour : 0}:${tokenTimeDivInput.minute ? tokenTimeDivInput.minute : 0}:${tokenTimeDivInput.second ? tokenTimeDivInput.second : 0}`;
+    setTokenTimeInput({ ...tokenTimeInput, timelimit: updatedTimeLimit });
   };
 
   const [isEditing, setIsEditing] = useState(false);
 
   const handleSelectChange = (e) => {};
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await updateTokenTime(tokenTimeInput.id,tokenTimeInput);
+    console.log(response);
+    setIsEditing(false);
+    } 
+
 
   useEffect(() => {
     console.log("isEditing", isEditing);
@@ -63,7 +71,7 @@ const TokenTimeBox = ({ tokenTime }) => {
   return (
     <div>
       {isEditing ? (
-        <div className="tokentime-add-container">
+        <form className="tokentime-add-container" onSubmit={handleSubmit}>
           <input
             className="tokentime-add-input tokenname"
             placeholder="token name"
@@ -94,14 +102,14 @@ const TokenTimeBox = ({ tokenTime }) => {
               onChange={(e) => handleTokenInputChange("second", e)}
             ></input>
           </div>
-          <div className="tokentime-add-submit">submit</div>
-          <div
+          <button className="tokentime-add-submit">submit</button>
+          <button
             className="tokentime-add-cancel"
             onClick={() => setIsEditing(false)}
           >
             cancel
-          </div>
-        </div>
+          </button>
+        </form>
       ) : (
         <div className="TokenTimeBox">
           <div className="token-time-box">
