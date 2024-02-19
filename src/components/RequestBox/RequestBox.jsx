@@ -1,5 +1,5 @@
 import "./Index.css";
-import  {useEffect}  from "react";
+import { useEffect } from "react";
 import TypeBox from "../RequestBox/TypeBox";
 import SpecUrlBox from "./SpecUrlBox";
 import Timer from "./Timer";
@@ -9,22 +9,13 @@ import { deleteRequest } from "../../api/api";
 
 const RequestBox = ({ requestId, type, specUrl, token }) => {
   const handleDelete = (targetId) => {
-    if(window.confirm("정말 삭제하시겠습니까?")){
+    if (window.confirm("정말 삭제하시겠습니까?")) {
       deleteRequest(targetId);
-    }
-    else{
+    } else {
       return;
     }
-    
   };
 
-useEffect(() => {
-    console.log(requestId);
-    console.log(type);
-    console.log(specUrl);
-    console.log(token);
-    
-  }, []);
   return (
     <div className="RequestBox">
       <div className="requestbox-container">
@@ -33,7 +24,10 @@ useEffect(() => {
             <TypeBox type={type} />
             <SpecUrlBox specUrl={specUrl} />
             <Timer />
-            <div className="delete-icon-box" onClick={() => handleDelete(requestId)}>
+            <div
+              className="delete-icon-box"
+              onClick={() => handleDelete(requestId)}
+            >
               <img className="delete-icon" src={trashbin} width="30" />
             </div>
           </div>
