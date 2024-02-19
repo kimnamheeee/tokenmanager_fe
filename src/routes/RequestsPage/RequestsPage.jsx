@@ -398,6 +398,7 @@ const RequestsPage = () => {
                     token={tokenList.find(
                       (token) => token.request === request.id
                     )}
+                    requestId={request.id}
                   />
                 ))}
             </div>
