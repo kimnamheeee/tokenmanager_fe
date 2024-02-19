@@ -25,6 +25,7 @@ const RequestsPage = () => {
   const [tokenList, setTokenList] = useState([]);
   const [requestIds, setRequestIds] = useState([]);
   const [tokenTypeOptions, setTokenTypeOptions] = useState([]);
+  const [tokenExpiredAtList, setTokenExpiredAtList] = useState([]);
   const { projectId } = useParams();
   const [project, setProject] = useState({
     project: projectId,
@@ -39,6 +40,11 @@ const RequestsPage = () => {
     content: "",
     request: 0,
   });
+
+  useEffect(() => {
+    const expiredAtList = tokenList.map((token) => token.expiredAt);
+    setTokenExpiredAtList(expiredAtList);
+  }, [tokenList]);
 
   const [tokenTimeDivInput, setTokenTimeDivInput] = useState({
     hour: "",
@@ -129,6 +135,24 @@ const RequestsPage = () => {
       if (request) {
         const requestId = request.id;
         const token = await createToken({ ...tokenInput, request: requestId });
+        // 1. tokenTimeList에서 tokenInput.token_name과 일치하는 오브젝트 가져옴
+        // 2. 그 오브젝트 내부의 .timelimit 속성을 각각 시, 분, 초로 나눈다
+        // 3. new Date()를 불러온다
+        // 4. 거기에 시, 분, 초를 각각 더해서 expiredAt에 저장
+        const targetTokenTimeLimit = tokenTimeList.find(
+          (token) => token.tokenname === tokenInput.token_name
+        ).timelimit;
+        const targetHour = parseInt(targetTokenTimeLimit.split(":")[0]);
+        const targetMinute = parseInt(targetTokenTimeLimit.split(":")[1]);
+        const targetSecond = parseInt(targetTokenTimeLimit.split(":")[2]);
+        const createdAt = new Date();
+
+        createdAt.setHours(createdAt.getHours() + targetHour);
+        createdAt.setMinutes(createdAt.getMinutes() + targetMinute);
+        createdAt.setSeconds(createdAt.getSeconds() + targetSecond);
+
+        token.expiredAt = createdAt;
+
         setTokenList([...tokenList, token]);
         setTokenInput({
           token_name: "",
