@@ -58,10 +58,6 @@ const RequestsPage = () => {
     project: projectId,
   });
 
-  useEffect(() => {
-    console.log("tokenTimeInput", tokenTimeInput);
-  }, [tokenTimeInput]);
-
   const handleRequestInput = (e) => {
     const { id, value } = e.target;
     setRequestInput({
@@ -174,7 +170,6 @@ const RequestsPage = () => {
     if (window.confirm("등록하시겠습니까?")) {
       const timeLimit = `${tokenTimeDivInput.hour}:${tokenTimeDivInput.minute}:${tokenTimeDivInput.second}`;
       data.timelimit = timeLimit;
-      console.log("DATA", data);
       const tokenTime = await createTokenTime(data);
       setTokenTimeList([...tokenTimeList, tokenTime]);
       setTokenTimeInput({
