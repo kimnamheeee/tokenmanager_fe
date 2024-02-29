@@ -7,7 +7,14 @@ import TokenBox from "./TokenBox";
 import trashbin from "../../assets/images/trash-bin.png";
 import { deleteRequest } from "../../api/api";
 
-const RequestBox = ({ requestId, type, specUrl, token }) => {
+const RequestBox = ({
+  requestId,
+  type,
+  specUrl,
+  token,
+  remainingTime,
+  initialRemainingTime,
+}) => {
   const handleDelete = (targetId) => {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       deleteRequest(targetId);
@@ -23,7 +30,10 @@ const RequestBox = ({ requestId, type, specUrl, token }) => {
           <div className="requestbox-type-specUrl">
             <TypeBox type={type} />
             <SpecUrlBox specUrl={specUrl} />
-            <Timer />
+            <Timer
+              remainingTime={remainingTime}
+              initialRemainingTime={initialRemainingTime}
+            />
             <div
               className="delete-icon-box"
               onClick={() => handleDelete(requestId)}
