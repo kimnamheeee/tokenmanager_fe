@@ -2,7 +2,7 @@ import "./Index.css";
 import trashbin from "../../assets/images/trash-bin.png";
 import pencil from "../../assets/images/pencil.png";
 import { useState, useEffect } from "react";
-import { updateTokenTime } from "../../api/api";
+import { deleteTokenTime, updateTokenTime } from "../../api/api";
 
 const TokenTimeBox = ({ tokenTime }) => {
 
@@ -18,6 +18,14 @@ const TokenTimeBox = ({ tokenTime }) => {
     timelimit: "",
     project: tokenTime.project,
   });
+
+  const handleDelete = (targetId) => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      deleteTokenTime(targetId);
+    } else {
+      return;
+    }
+  };
 
   const handleTokenInputChange = (field, e) => {
     switch (field) {
@@ -116,7 +124,7 @@ const TokenTimeBox = ({ tokenTime }) => {
             <div className="token-name">{tokenTime.tokenname}</div>
             <div className="token-time-button-container">
               <div className="token-duration">{tokenTime.timelimit}</div>
-              <div className="delete-icon-box">
+              <div className="delete-icon-box" onClick={() => handleDelete(tokenTime.id)}>
                 <img className="delete-icon" src={trashbin} width="30" />
               </div>
               <div
