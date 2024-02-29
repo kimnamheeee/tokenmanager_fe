@@ -13,6 +13,7 @@ import {
   createRequest,
   createToken,
   createTokenTime,
+  getTokenExpiredList,
 } from "../../api/api";
 import { useParams } from "react-router-dom";
 
@@ -305,7 +306,15 @@ const RequestsPage = () => {
   }, [tokenExpiredAtList]);
 
   useEffect(() => {
-    console.log("EXPIRED TOKENS", expiredTokenList);
+    const fetchExpiredTokens = async () => {
+      const expiredTokenString = expiredTokenList.join("*");
+      const res = await getTokenExpiredList({
+        expired_tokens: expiredTokenString,
+      });
+      setTokenList(res);
+    };
+
+    fetchExpiredTokens();
   }, [expiredTokenList]);
 
   return (
@@ -425,16 +434,22 @@ const RequestsPage = () => {
               {requestList
                 .slice()
                 .reverse()
-                .map((request) => (
-                  <RequestBox
-                    type={request.type}
-                    specUrl={request.spec_url}
-                    token={tokenList.find(
-                      (token) => token.request === request.id
-                    )}
-                    requestId={request.id}
-                  />
-                ))}
+                .map((request) => {
+                  const token = tokenList.find(
+                    (token) => token.request === request.id
+                  );
+                  if (token && !token.is_expired) {
+                    return (
+                      <RequestBox
+                        type={request.type}
+                        specUrl={request.spec_url}
+                        token={token}
+                        requestId={request.id}
+                      />
+                    );
+                  }
+                  return null;
+                })}
             </div>
           </div>
           {isAddingToken ? (
@@ -453,7 +468,28 @@ const RequestsPage = () => {
         <div className="expired-token-container">
           <div className="request-container-box">
             <div className="request-container-box-button">expired</div>
-            <div className="rqbox-container">{/* <RequestBox /> */}</div>
+            <div className="rqbox-container">
+              {" "}
+              {requestList
+                .slice()
+                .reverse()
+                .map((request) => {
+                  const token = tokenList.find(
+                    (token) => token.request === request.id
+                  );
+                  if (token && token.is_expired) {
+                    return (
+                      <RequestBox
+                        type={request.type}
+                        specUrl={request.spec_url}
+                        token={token}
+                        requestId={request.id}
+                      />
+                    );
+                  }
+                  return null;
+                })}
+            </div>
           </div>
         </div>
       </div>
