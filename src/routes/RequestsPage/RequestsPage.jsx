@@ -1,5 +1,5 @@
 import "./Index.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Select from "react-select";
 
 import ProjectHeader from "../../components/RequestBox/ProjectHeader";
@@ -50,8 +50,8 @@ const RequestsPage = () => {
   useEffect(() => {
     if (!tokenList || tokenList.some((token) => token === undefined)) return;
     const expiredAtList = tokenList
-      .map((token) => token.expires_at)
-      .filter((expiredAt) => expiredAt !== undefined);
+      .filter((token) => token.expires_at !== undefined)
+      .map((token) => ({ id: token.id, expires_at: token.expires_at })); // id와 expires_at 정보를 포함하는 객체를 반환
     setTokenExpiredAtList(expiredAtList);
   }, [tokenList]);
 
@@ -282,26 +282,31 @@ const RequestsPage = () => {
     setIsAdding(true);
   };
 
+  const prevExpiredTokensLength = useRef(0);
+  const expiredTokensRef = useRef([]);
+
   useEffect(() => {
     const checkExpired = setInterval(() => {
-      // 만료된 토큰을 담을 배열
-      const expiredTokens = [];
+      expiredTokensRef.current = [];
 
-      // tokenExpiredAtList를 순회하면서 만료된 토큰을 찾음
       tokenExpiredAtList.forEach((expiredAt) => {
-        // 만료된 시간보다 현재 시간이 더 클 경우에는 만료된 토큰이므로 expiredTokens에 추가
-        if (new Date(expiredAt) < Date.now()) {
-          expiredTokens.push(expiredAt);
+        if (new Date(expiredAt.expires_at) < Date.now()) {
+          expiredTokensRef.current.push(expiredAt.id); // 만료된 토큰의 id를 추가
         }
       });
 
-      // 만료된 토큰을 state에 업데이트
-      setExpiredTokenList(expiredTokens);
+      if (expiredTokensRef.current.length !== prevExpiredTokensLength.current) {
+        setExpiredTokenList([...expiredTokensRef.current]);
+        prevExpiredTokensLength.current = expiredTokensRef.current.length;
+      }
     }, 1000);
 
-    // 컴포넌트가 마운트 해제될 때 clearInterval로 체크하고 setInterval을 중지시킴
     return () => clearInterval(checkExpired);
-  }, [tokenExpiredAtList]); // tokenExpiredAtList가 변경될 때마다 useEffect 실행
+  }, [tokenExpiredAtList]);
+
+  useEffect(() => {
+    console.log("EXPIRED TOKENS", expiredTokenList);
+  }, [expiredTokenList]);
 
   return (
     <div className="RequestsPage">
