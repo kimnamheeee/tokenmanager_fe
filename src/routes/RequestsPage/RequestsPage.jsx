@@ -39,6 +39,7 @@ const RequestsPage = () => {
     token_name: "",
     content: "",
     request: 0,
+    expiredAt: "",
   });
 
   useEffect(() => {
@@ -130,7 +131,6 @@ const RequestsPage = () => {
       });
       if (request) {
         const requestId = request.id;
-        const token = await createToken({ ...tokenInput, request: requestId });
         // 1. tokenTimeList에서 tokenInput.token_name과 일치하는 오브젝트 가져옴
         // 2. 그 오브젝트 내부의 .timelimit 속성을 각각 시, 분, 초로 나눈다
         // 3. new Date()를 불러온다
@@ -147,13 +147,21 @@ const RequestsPage = () => {
         createdAt.setMinutes(createdAt.getMinutes() + targetMinute);
         createdAt.setSeconds(createdAt.getSeconds() + targetSecond);
 
-        token.expiredAt = createdAt;
+        const tokenBody = {
+          token_name: tokenInput.token_name,
+          content: tokenInput.content,
+          request: requestId,
+          expiredAt: createdAt,
+        };
+
+        const token = await createToken(tokenBody);
 
         setTokenList([...tokenList, token]);
         setTokenInput({
           token_name: "",
           content: "",
           request: 0,
+          expiredAt: "",
         });
       }
       setIsAddingToken(false);
