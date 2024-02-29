@@ -21,6 +21,7 @@ import check from "../../assets/images/check.svg";
 
 const RequestsPage = () => {
   const [tokenTimeList, setTokenTimeList] = useState([]);
+  const [expiredTokenList, setExpiredTokenList] = useState([]);
   const [requestList, setRequestList] = useState([]);
   const [tokenList, setTokenList] = useState([]);
   const [requestIds, setRequestIds] = useState([]);
@@ -39,11 +40,18 @@ const RequestsPage = () => {
     token_name: "",
     content: "",
     request: 0,
-    expiredAt: "",
+    expiredAt: new Date(),
   });
 
+  // useEffect(() => {
+  //   console.log("TOKEN IS EXPIRED", expiredTokenList);
+  // }, [expiredTokenList]);
+
   useEffect(() => {
-    const expiredAtList = tokenList.map((token) => token.expiredAt);
+    if (!tokenList || tokenList.some((token) => token === undefined)) return;
+    const expiredAtList = tokenList
+      .map((token) => token.expires_at)
+      .filter((expiredAt) => expiredAt !== undefined);
     setTokenExpiredAtList(expiredAtList);
   }, [tokenList]);
 
@@ -147,14 +155,11 @@ const RequestsPage = () => {
         createdAt.setMinutes(createdAt.getMinutes() + targetMinute);
         createdAt.setSeconds(createdAt.getSeconds() + targetSecond);
 
-        const tokenBody = {
-          token_name: tokenInput.token_name,
-          content: tokenInput.content,
-          request: requestId,
-          expiredAt: createdAt,
-        };
+        tokenInput.expiredAt = createdAt;
+        console.log("INPUT", tokenInput);
+        const token = await createToken({ ...tokenInput, request: requestId });
 
-        const token = await createToken(tokenBody);
+        console.log("CREATED TOKEN", token);
 
         setTokenList([...tokenList, token]);
         setTokenInput({
@@ -276,6 +281,27 @@ const RequestsPage = () => {
   const handleAddButtonClick = () => {
     setIsAdding(true);
   };
+
+  useEffect(() => {
+    const checkExpired = setInterval(() => {
+      // 만료된 토큰을 담을 배열
+      const expiredTokens = [];
+
+      // tokenExpiredAtList를 순회하면서 만료된 토큰을 찾음
+      tokenExpiredAtList.forEach((expiredAt) => {
+        // 만료된 시간보다 현재 시간이 더 클 경우에는 만료된 토큰이므로 expiredTokens에 추가
+        if (new Date(expiredAt) < Date.now()) {
+          expiredTokens.push(expiredAt);
+        }
+      });
+
+      // 만료된 토큰을 state에 업데이트
+      setExpiredTokenList(expiredTokens);
+    }, 1000);
+
+    // 컴포넌트가 마운트 해제될 때 clearInterval로 체크하고 setInterval을 중지시킴
+    return () => clearInterval(checkExpired);
+  }, [tokenExpiredAtList]); // tokenExpiredAtList가 변경될 때마다 useEffect 실행
 
   return (
     <div className="RequestsPage">
