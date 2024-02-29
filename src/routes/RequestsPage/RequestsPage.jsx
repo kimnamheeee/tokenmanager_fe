@@ -166,6 +166,7 @@ const RequestsPage = () => {
           token_name: "",
           content: "",
           request: 0,
+          expiredAt: "",
         });
       }
       setIsAddingToken(false);
