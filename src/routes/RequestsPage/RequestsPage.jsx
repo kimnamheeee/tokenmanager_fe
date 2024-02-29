@@ -445,6 +445,16 @@ const RequestsPage = () => {
                         specUrl={request.spec_url}
                         token={token}
                         requestId={request.id}
+                        remainingTime={Math.round(
+                          Math.abs(
+                            new Date(token.expires_at) -
+                              new Date(token.created_at)
+                          ) / 1000
+                        )}
+                        initialRemainingTime={Math.round(
+                          Math.abs(new Date(token.expires_at) - new Date()) /
+                            1000
+                        )}
                       />
                     );
                   }
