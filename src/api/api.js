@@ -121,7 +121,7 @@ export const createToken = async (data) => {
   } else {
     console.log("[ERROR] error while creating token");
   }
-  return response;
+  return response.data;
 };
 
 export const deleteToken = async (id, navigate) => {
