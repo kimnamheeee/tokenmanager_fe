@@ -173,3 +173,8 @@ export const getTokenTimeList = async (data) => {
   const response = await instance.get("/tokentime/", { params: data });
   return response.data;
 };
+
+export const getTokenExpiredList = async (data) => {
+  const response = await instance.post('/tokens/expired/', data);
+  return response.data;
+}
